@@ -578,3 +578,4 @@
 /Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/bin/Debug/net8.0/refs/Microsoft.Extensions.Options.dll
 /Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/bin/Debug/net8.0/refs/Microsoft.Extensions.Primitives.dll
 /Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/bin/Debug/net8.0/refs/System.Diagnostics.DiagnosticSource.dll
+/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/obj/Debug/net8.0/AI-Wardrobe.sourcelink.json
