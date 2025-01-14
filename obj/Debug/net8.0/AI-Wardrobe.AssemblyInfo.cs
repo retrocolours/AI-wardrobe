@@ -11,12 +11,11 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-AI_Wardrobe-d75aa353-5393-4c63-a707-1ae8edbdda13")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("AI-Wardrobe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e295100a8241b64d6e5d577e1f97b6cfbc5246d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1caf2ef3c5f3230ca20ada52dfbb9d405affb689")]
 [assembly: System.Reflection.AssemblyProductAttribute("AI-Wardrobe")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AI-Wardrobe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
