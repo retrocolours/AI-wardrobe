@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -19,6 +20,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using static AI_Wardrobe.Data.Services.ReCAPTCHA;
+
 
 namespace AI_Wardrobe.Areas.Identity.Pages.Account
 {
@@ -32,6 +35,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly UserRepo _userRepo;
         private readonly UserRoleRepo _userRoleRepo;
+        private readonly IConfiguration _configuration;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -39,6 +43,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
+            IConfiguration configuration,
             UserRepo userRepo,
             UserRoleRepo userRoleRepo)
         {
@@ -48,6 +53,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _configuration = configuration;
             _userRepo = userRepo;
             _userRoleRepo = userRoleRepo;
         }
@@ -109,6 +115,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            ViewData["SiteKey"] = _configuration.GetSection("recaptchaApiKey").Value;
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -117,6 +124,22 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+string captchaResponse = Request.Form["g-Recaptcha-Response"];
+
+string recaptchaSecret=_configuration.GetSection("recaptchaSecretKey").Value;
+
+
+ReCaptchaValidationResult resultCaptcha =
+ReCaptchaValidator.IsValid(recaptchaSecret, captchaResponse);
+// Invalidate the form if the captcha is invalid.
+if (!resultCaptcha.Success)
+{
+ViewData["SiteKey"] = _configuration["Recaptcha:SiteKey"];
+ModelState.AddModelError(string.Empty,
+"The ReCaptcha is invalid.");
+}
+
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
