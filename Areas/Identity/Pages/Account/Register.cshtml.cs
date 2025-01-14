@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -107,7 +108,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ViewData["SiteKey"] = _configuration["Recaptcha:SiteKey"];
+            ViewData["SiteKey"] = _configuration.GetSection("recaptchaApiKey").Value;
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -117,9 +118,12 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 string captchaResponse = Request.Form["g-Recaptcha-Response"];
-string secret = _configuration["Recaptcha:SecretKey"];
+
+string recaptchaSecret=_configuration.GetSection("recaptchaSecretKey").Value;
+
+
 ReCaptchaValidationResult resultCaptcha =
-ReCaptchaValidator.IsValid(secret, captchaResponse);
+ReCaptchaValidator.IsValid(recaptchaSecret, captchaResponse);
 // Invalidate the form if the captcha is invalid.
 if (!resultCaptcha.Success)
 {
