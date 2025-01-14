@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using AI_Wardrobe.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -29,13 +30,17 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly UserRepo _userRepo;
+        private readonly UserRoleRepo _userRoleRepo;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            UserRepo userRepo,
+            UserRoleRepo userRoleRepo)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +48,8 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _userRepo = userRepo;
+            _userRoleRepo = userRoleRepo;
         }
 
         /// <summary>
@@ -140,6 +147,11 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        //add the data to the user table
+                        
+                        //_userRepo.
+
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }

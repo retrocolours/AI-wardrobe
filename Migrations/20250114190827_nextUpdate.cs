@@ -4,10 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace AI_Wardrobe.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class nextUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -155,6 +157,16 @@ namespace AI_Wardrobe.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "Ad", null, "Admin", "ADMIN" },
+                    { "Cu", null, "Customer", "CUSTOMER" },
+                    { "Ma", null, "Manager", "MANAGER" }
                 });
 
             migrationBuilder.CreateIndex(

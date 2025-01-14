@@ -1280,7 +1280,7 @@
           }
         }
       },
-      "Microsoft.DotNet.Scaffolding.Shared/8.0.7": {
+      "Microsoft.DotNet.Scaffolding.Shared/8.0.6": {
         "type": "package",
         "dependencies": {
           "Humanizer": "2.14.1",
@@ -1900,11 +1900,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGeneration/8.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "8.0.1",
-          "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "8.0.7"
+          "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "8.0.6"
         },
         "compile": {
           "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.dll": {
@@ -1917,11 +1917,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Core/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Core/8.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "8.0.1",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "8.0.7",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "8.0.6",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -1935,11 +1935,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design/8.0.6": {
         "type": "package",
         "dependencies": {
-          "Microsoft.DotNet.Scaffolding.Shared": "8.0.7",
-          "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "8.0.7"
+          "Microsoft.DotNet.Scaffolding.Shared": "8.0.6",
+          "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "8.0.6"
         },
         "compile": {
           "lib/net8.0/dotnet-aspnet-codegenerator-design.dll": {
@@ -1952,11 +1952,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/8.0.6": {
         "type": "package",
         "dependencies": {
-          "Microsoft.DotNet.Scaffolding.Shared": "8.0.7",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Core": "8.0.7"
+          "Microsoft.DotNet.Scaffolding.Shared": "8.0.6",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Core": "8.0.6"
         },
         "compile": {
           "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll": {
@@ -1969,13 +1969,13 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Templating/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Templating/8.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Razor.Language": "6.0.24",
           "Microsoft.CodeAnalysis.CSharp": "4.8.0",
           "Microsoft.CodeAnalysis.Razor": "6.0.24",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "8.0.7"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "8.0.6"
         },
         "compile": {
           "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll": {
@@ -1988,12 +1988,12 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGeneration.Utils/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGeneration.Utils/8.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.Build": "17.8.3",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.8.0",
-          "Microsoft.DotNet.Scaffolding.Shared": "8.0.7",
+          "Microsoft.DotNet.Scaffolding.Shared": "8.0.6",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -2007,11 +2007,11 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/8.0.7": {
+      "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/8.0.6": {
         "type": "package",
         "dependencies": {
-          "Microsoft.DotNet.Scaffolding.Shared": "8.0.7",
-          "Microsoft.VisualStudio.Web.CodeGeneration": "8.0.7"
+          "Microsoft.DotNet.Scaffolding.Shared": "8.0.6",
+          "Microsoft.VisualStudio.Web.CodeGeneration": "8.0.6"
         },
         "compile": {
           "lib/net8.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll": {
@@ -5006,10 +5006,10 @@
         "microsoft.diasymreader.nuspec"
       ]
     },
-    "Microsoft.DotNet.Scaffolding.Shared/8.0.7": {
-      "sha512": "q11ADAFXiDHsiH6YpHDCtu/5JB/k6nBWM1pwoI3yOzq//2ZdnWgNkgs1coZyv/XZluxZbVmeo6f+ZoYGebIj/Q==",
+    "Microsoft.DotNet.Scaffolding.Shared/8.0.6": {
+      "sha512": "b8pT7zwT2Fy1DVMdYO2whegbOnXW3OzfudI91QEg7yZTQch4nNH/xoMOamQR/UzESJjdkpouFEnAxGYv0aSAIQ==",
       "type": "package",
-      "path": "microsoft.dotnet.scaffolding.shared/8.0.7",
+      "path": "microsoft.dotnet.scaffolding.shared/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5017,7 +5017,7 @@
         "NOTICE.txt",
         "lib/netstandard2.0/Microsoft.DotNet.Scaffolding.Shared.dll",
         "lib/netstandard2.0/Microsoft.DotNet.Scaffolding.Shared.xml",
-        "microsoft.dotnet.scaffolding.shared.8.0.7.nupkg.sha512",
+        "microsoft.dotnet.scaffolding.shared.8.0.6.nupkg.sha512",
         "microsoft.dotnet.scaffolding.shared.nuspec"
       ]
     },
@@ -5919,10 +5919,10 @@
         "ref/netstandard2.0/Microsoft.NET.StringTools.xml"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration/8.0.7": {
-      "sha512": "8WqtBA1DxiiEq1c2PjgkeFYHPC0WwC5Yl7FuDg41RQ6rvi661mSHCApzz3/rp/cfb8I7DiG1+3d01q5ck+BT1w==",
+    "Microsoft.VisualStudio.Web.CodeGeneration/8.0.6": {
+      "sha512": "CL+ReV3E/94mmO9DuVlNizZ+esc37EQU16mIiw347J1Ed0g6Rx0BDuNfkrtD8Z+V+n4bFaAV4RapzJ5J5eLZfw==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration/8.0.7",
+      "path": "microsoft.visualstudio.web.codegeneration/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5931,14 +5931,14 @@
         "README.md",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.dll",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.xml",
-        "microsoft.visualstudio.web.codegeneration.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Core/8.0.7": {
-      "sha512": "kahoV4hImS/uUfn3K9ecU+o1U4pn5sdnabG+DGsK9bf6gL0tw8MnrArz3M9kWYMKDsVd3/j/3ZriTH+hVrPW2w==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Core/8.0.6": {
+      "sha512": "uyc5XggteHxuxj9OhFq7np+kN+lUhIUEBO1uWYwm8gE01VstQZj3uWafA79/wzBCi0qSFWoi+h9iXCwlzqL7mw==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.core/8.0.7",
+      "path": "microsoft.visualstudio.web.codegeneration.core/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5947,14 +5947,14 @@
         "README.md",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.xml",
-        "microsoft.visualstudio.web.codegeneration.core.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.core.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.core.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Design/8.0.7": {
-      "sha512": "qURp+VCwreGNQBofL6z3uUnLmrG3PCap/jN/B8jGqsiMLjhR+FOO7r9R1vcNeXYd5cFORpQvsuZi6GWXxr2dCA==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Design/8.0.6": {
+      "sha512": "8s0QatoAhkButhDFPcVNfZxb2ml5yTxqSieXFhlGuM2dU2ORH2AjMzr1l/hm2HdAxdDlV2EzvIyPUDbra3VoLw==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.design/8.0.7",
+      "path": "microsoft.visualstudio.web.codegeneration.design/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5963,14 +5963,14 @@
         "README.md",
         "lib/net8.0/dotnet-aspnet-codegenerator-design.dll",
         "lib/net8.0/dotnet-aspnet-codegenerator-design.xml",
-        "microsoft.visualstudio.web.codegeneration.design.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.design.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.design.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/8.0.7": {
-      "sha512": "Cd37PMogJ7sbzbUkbZsqPOLpKg0xbBLypsGuJ8HLX7caTDSg2NIsNT/MJKu0VybfoQ2L4fli8XpJXxVytbx1wA==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/8.0.6": {
+      "sha512": "Z5gYMnlL/WSENqeB+Dts1G+YOnDsPXuyu8Rlvf1MzOu4LRGmwpcJpyTUf7avB9eK/gtQxJVQaKutVLtYPiIKXQ==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.entityframeworkcore/8.0.7",
+      "path": "microsoft.visualstudio.web.codegeneration.entityframeworkcore/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5981,14 +5981,14 @@
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.runtimeconfig.json",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.xml",
-        "microsoft.visualstudio.web.codegeneration.entityframeworkcore.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.entityframeworkcore.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Templating/8.0.7": {
-      "sha512": "uXtCSh13HD7589QSez9cVwQ2xacIgDuf33/ifW8a6DqxC+dF5ium2p+5odUNbzRU8cnCuISjti7F+D4F9kLLVw==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Templating/8.0.6": {
+      "sha512": "Uwpht7umBSkfhTnDD3PIxVerwtYREsWKlBUnkz2DmVi1xozxGeNImQAwups2Tm5+JXmjgyGdxzT/NHoi0oDGkg==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.templating/8.0.7",
+      "path": "microsoft.visualstudio.web.codegeneration.templating/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5997,14 +5997,14 @@
         "README.md",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.xml",
-        "microsoft.visualstudio.web.codegeneration.templating.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.templating.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.templating.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGeneration.Utils/8.0.7": {
-      "sha512": "2oA20npXOXxH2pmnTtXNrPgow+W3dGREI+SWrCci5IbTgQE6NOhL+5PmbxqAqjhmoyy9CSEbaav9eWTM7jEdQQ==",
+    "Microsoft.VisualStudio.Web.CodeGeneration.Utils/8.0.6": {
+      "sha512": "6AnbvYr1jF9x1YPtcXwpTPHMsuqNGjl+Ujr9vMMKR1qeyWl0bHwqVzw/TX3yUE0bYpSYG/BsYPdu3bVJSuZReQ==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegeneration.utils/8.0.7",
+      "path": "microsoft.visualstudio.web.codegeneration.utils/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6013,14 +6013,14 @@
         "README.md",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll",
         "lib/net8.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.xml",
-        "microsoft.visualstudio.web.codegeneration.utils.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegeneration.utils.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegeneration.utils.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/8.0.7": {
-      "sha512": "IN7xeBHZ/WtYN62Ez0rEWqpsiTlpEUbGcjvXLRF2gNO8SdhFn9IhzdixKXTLzHTf89oS9Y5mFIPkWcU4Y99USA==",
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/8.0.6": {
+      "sha512": "ZuW+GFb9dod2CiGgQJ+zPD7/kJdUsKw1cB8b5auhIXyGl2Yf9dCQ7vqTNWYjqQ7GKEf8mBeqZgqGY7JQ+5b4bg==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.codegenerators.mvc/8.0.7",
+      "path": "microsoft.visualstudio.web.codegenerators.mvc/8.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6403,7 +6403,7 @@
         "lib/net8.0/bootstrap5_identitygeneratorfilesconfig.json",
         "lib/net8.0/identityMinimalHostingChanges.json",
         "lib/net8.0/minimalApiChanges.json",
-        "microsoft.visualstudio.web.codegenerators.mvc.8.0.7.nupkg.sha512",
+        "microsoft.visualstudio.web.codegenerators.mvc.8.0.6.nupkg.sha512",
         "microsoft.visualstudio.web.codegenerators.mvc.nuspec"
       ]
     },
@@ -7584,29 +7584,32 @@
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.11",
       "Microsoft.Extensions.Configuration.Json >= 8.0.1",
       "Microsoft.Extensions.Logging.Console >= 8.0.1",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.6",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.11"
     ]
   },
   "packageFolders": {
-    "/Users/captainfunkystache/.nuget/packages/": {}
+    "C:\\Users\\JB\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/AI-Wardrobe.csproj",
+      "projectUniqueName": "C:\\Users\\JB\\source\\repos\\AI-wardrobe\\AI-Wardrobe.csproj",
       "projectName": "AI-Wardrobe",
-      "projectPath": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/AI-Wardrobe.csproj",
-      "packagesPath": "/Users/captainfunkystache/.nuget/packages/",
-      "outputPath": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/obj/",
+      "projectPath": "C:\\Users\\JB\\source\\repos\\AI-wardrobe\\AI-Wardrobe.csproj",
+      "packagesPath": "C:\\Users\\JB\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JB\\source\\repos\\AI-wardrobe\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/captainfunkystache/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\JB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7670,7 +7673,7 @@
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
-            "version": "[8.0.7, )"
+            "version": "[8.0.6, )"
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
@@ -7696,7 +7699,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

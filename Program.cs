@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AI_Wardrobe.Data;
 using AI_Wardrobe.Models;
+using AI_Wardrobe.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,13 @@ options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<UserRepo>();
+builder.Services.AddScoped<UserRoleRepo>();
+builder.Services.AddScoped<RoleRepo>();
 
 var app = builder.Build();
 
