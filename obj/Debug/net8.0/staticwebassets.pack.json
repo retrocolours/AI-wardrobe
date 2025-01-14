@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/AI-Wardrobe.bundle.scp.css"
     },
     {
+      "Id": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/wwwroot/css/home.css",
+      "PackagePath": "staticwebassets/css/home.css"
+    },
+    {
       "Id": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

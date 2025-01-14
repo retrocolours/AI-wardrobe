@@ -1,0 +1,179 @@
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General Body and Font Settings */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Header Section */
+.header {
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .logo h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.nav ul li {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  gap: 1rem;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  gap: 1rem;
+}
+.nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding-top: 1rem;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+/* Main Banner Section */
+.main-banner {
+  background-image: url("banner.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 60px 0;
+  text-align: center;
+  color: white;
+}
+
+.banner-text h2 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.banner-text p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-btn {
+  background-color: #ff6f61;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+
+.cta-btn:hover {
+  background-color: #ff3b2f;
+}
+
+/* Categories Section */
+.categories {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 0;
+}
+
+.category {
+  text-align: center;
+  width: 22%;
+}
+
+.category img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.shop-btn {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.shop-btn:hover {
+  background-color: #ff6f61;
+}
+
+/* Trending Now Section */
+.trending-now {
+  background-color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.trending-now h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.product {
+  display: inline-block;
+  margin: 20px;
+  width: 20%;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product p {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* Footer Section */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.footer-links ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: white;
+  margin: 0 10px;
+}

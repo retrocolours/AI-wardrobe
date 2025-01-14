@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5uiOr7FSOWX1y4Wvg0+0luJc94AZdpV72mmewyoHnO0=",
+  "Hash": "qV3v/oixeZRkuCrGKxlHRl2WX5+S3uV/n3QlEq/79Ag=",
   "Source": "AI-Wardrobe",
   "BasePath": "_content/AI-Wardrobe",
   "Mode": "Default",
@@ -1193,6 +1193,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/obj/Debug/net8.0/scopedcss/projectbundle/AI-Wardrobe.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/wwwroot/css/home.css",
+      "SourceId": "AI-Wardrobe",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/wwwroot/",
+      "BasePath": "_content/AI-Wardrobe",
+      "RelativePath": "css/home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/home.css"
     },
     {
       "Identity": "/Users/captainfunkystache/Desktop/BCIT/projects/aiwardrobe/AI-Wardrobe/wwwroot/css/site.css",

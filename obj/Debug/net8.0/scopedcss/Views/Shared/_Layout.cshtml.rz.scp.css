@@ -8,7 +8,13 @@ a.navbar-brand[b-5roeoql8lq] {
 }
 
 a[b-5roeoql8lq] {
-  color: #0077cc;
+  text-decoration: none;
+}
+
+li[b-5roeoql8lq] {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .btn-primary[b-5roeoql8lq] {
