@@ -43,7 +43,8 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IEmailService emailService)
+            IEmailService emailService,
+           IConfiguration configuration)
         {
             _userManager = userManager;
             _userStore = userStore;
