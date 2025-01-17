@@ -23,5 +23,5 @@ public partial class Address
 
     public int? Fkuserid { get; set; }
 
-    public virtual User? Fkuser { get; set; }
+    public virtual RegisteredUser? Fkuser { get; set; }
 }

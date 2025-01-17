@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AI-Wardrobe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84249fa8908a3edf91b63d1097c86fa5b64032be")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ed4328073b9495d643f52c18367fdaa433a4ebb")]
 [assembly: System.Reflection.AssemblyProductAttribute("AI-Wardrobe")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AI-Wardrobe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
