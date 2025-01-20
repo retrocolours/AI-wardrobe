@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using AI_Wardrobe.Models;
+using AI_Wardrobe.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +30,8 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly UserRepo _userRepo;
+        private readonly UserRoleRepo _userRoleRepo;
         private readonly IConfiguration _configuration;
 
         public RegisterModel(
@@ -36,7 +40,9 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            UserRepo userRepo,
+            UserRoleRepo userRoleRepo)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -45,6 +51,8 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _configuration = configuration;
+            _userRepo = userRepo;
+            _userRoleRepo = userRoleRepo;
         }
 
         /// <summary>
@@ -113,20 +121,20 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-string captchaResponse = Request.Form["g-Recaptcha-Response"];
+            string captchaResponse = Request.Form["g-Recaptcha-Response"];
 
-string recaptchaSecret=_configuration.GetSection("recaptchaSecretKey").Value;
+            string recaptchaSecret = _configuration.GetSection("recaptchaSecretKey").Value;
 
 
-ReCaptchaValidationResult resultCaptcha =
-ReCaptchaValidator.IsValid(recaptchaSecret, captchaResponse);
-// Invalidate the form if the captcha is invalid.
-if (!resultCaptcha.Success)
-{
-ViewData["SiteKey"] = _configuration["Recaptcha:SiteKey"];
-ModelState.AddModelError(string.Empty,
-"The ReCaptcha is invalid.");
-}
+            ReCaptchaValidationResult resultCaptcha =
+            ReCaptchaValidator.IsValid(recaptchaSecret, captchaResponse);
+            // Invalidate the form if the captcha is invalid.
+            if (!resultCaptcha.Success)
+            {
+                ViewData["SiteKey"] = _configuration["Recaptcha:SiteKey"];
+                ModelState.AddModelError(string.Empty,
+                "The ReCaptcha is invalid.");
+            }
 
 
             if (ModelState.IsValid)
@@ -153,6 +161,14 @@ ModelState.AddModelError(string.Empty,
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    //add the data to the user table
+                    RegisteredUser registerUser = new RegisteredUser()
+                    {
+                        Email = Input.Email,
+                    };
+                    _userRepo.AddUser(registerUser);
+                    //need to add the default user role eventually.
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -162,6 +178,7 @@ ModelState.AddModelError(string.Empty,
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
+
                 }
                 foreach (var error in result.Errors)
                 {
