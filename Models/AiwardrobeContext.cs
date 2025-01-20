@@ -27,14 +27,11 @@ public partial class AiwardrobeContext : DbContext
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
+    public virtual DbSet<RegisteredUser> RegisteredUsers { get; set; }
+
     public virtual DbSet<Size> Sizes { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
-
-    public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<UserType> UserTypes { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -162,6 +159,27 @@ public partial class AiwardrobeContext : DbContext
                 .HasConstraintName("order_details_order_id_fk");
         });
 
+        modelBuilder.Entity<RegisteredUser>(entity =>
+        {
+            entity.HasKey(e => e.Userid).HasName("User_pkey");
+
+            entity.ToTable("RegisteredUser");
+
+            entity.Property(e => e.Userid)
+                .HasDefaultValueSql("nextval('\"User_userid_seq\"'::regclass)")
+                .HasColumnName("userid");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .HasColumnName("email");
+            entity.Property(e => e.Firstname)
+                .HasMaxLength(255)
+                .HasColumnName("firstname");
+            entity.Property(e => e.Lastname)
+                .HasMaxLength(255)
+                .HasColumnName("lastname");
+            entity.Property(e => e.Phone).HasColumnName("phone");
+        });
+
         modelBuilder.Entity<Size>(entity =>
         {
             entity.HasKey(e => e.Sizeid).HasName("Size_pkey");
@@ -191,40 +209,6 @@ public partial class AiwardrobeContext : DbContext
             entity.HasOne(d => d.Fkorder).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.Fkorderid)
                 .HasConstraintName("transaction_order_id_fk");
-        });
-
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Userid).HasName("User_pkey");
-
-            entity.ToTable("User");
-
-            entity.Property(e => e.Userid).HasColumnName("userid");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .HasColumnName("email");
-            entity.Property(e => e.Firstname)
-                .HasMaxLength(255)
-                .HasColumnName("firstname");
-            entity.Property(e => e.Fkusertypeid).HasColumnName("fkusertypeid");
-            entity.Property(e => e.Lastname)
-                .HasMaxLength(255)
-                .HasColumnName("lastname");
-            entity.Property(e => e.Phone).HasColumnName("phone");
-
-            entity.HasOne(d => d.Fkusertype).WithMany(p => p.Users)
-                .HasForeignKey(d => d.Fkusertypeid)
-                .HasConstraintName("user_user_type_fk");
-        });
-
-        modelBuilder.Entity<UserType>(entity =>
-        {
-            entity.HasKey(e => e.Usertypeid).HasName("UserTypes_pkey");
-
-            entity.Property(e => e.Usertypeid).HasColumnName("usertypeid");
-            entity.Property(e => e.Usertype1)
-                .HasMaxLength(255)
-                .HasColumnName("usertype");
         });
 
         OnModelCreatingPartial(modelBuilder);

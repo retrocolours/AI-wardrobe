@@ -1,5 +1,4 @@
-
 .env
-obj/
 .vs/
+obj/
 bin/
