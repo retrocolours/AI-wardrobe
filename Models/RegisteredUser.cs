@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AI_Wardrobe.Models;
 
-public partial class User
+public partial class RegisteredUser
 {
     public int Userid { get; set; }
 
@@ -15,11 +15,7 @@ public partial class User
 
     public string? Email { get; set; }
 
-    public int? Fkusertypeid { get; set; }
-
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
-
-    public virtual UserType? Fkusertype { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
