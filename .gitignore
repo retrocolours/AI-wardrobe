@@ -1,3 +1,5 @@
-.vs/
+
+.env
 obj/
+.vs/
 bin/
