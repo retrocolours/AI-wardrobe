@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe\\AI-Wardrobe.csproj": {}
+    "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe--asdasdsad\\AI-Wardrobe.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe\\AI-Wardrobe.csproj": {
+    "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe--asdasdsad\\AI-Wardrobe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe\\AI-Wardrobe.csproj",
+        "projectUniqueName": "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe--asdasdsad\\AI-Wardrobe.csproj",
         "projectName": "AI-Wardrobe",
-        "projectPath": "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe\\AI-Wardrobe.csproj",
+        "projectPath": "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe--asdasdsad\\AI-Wardrobe.csproj",
         "packagesPath": "C:\\Users\\JB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe\\obj\\",
+        "outputPath": "C:\\Users\\JB\\Source\\Repos\\AI-wardrobe--asdasdsad\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JB\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -91,6 +91,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.11, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
             }
           },
           "imports": [
