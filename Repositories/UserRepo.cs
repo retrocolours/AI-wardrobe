@@ -14,9 +14,13 @@ namespace AI_Wardrobe.Repositories
         {
             _aiWardrobeContext = aiwardrobeContext;
             _appContext = appContext;
+        }
 
-            var appUser = appContext.Users;
-            var aiUser = aiwardrobeContext.Users;
+        public void AddUser(RegisteredUser user)
+        {
+            _aiWardrobeContext.RegisteredUsers.Add(user);
+            _aiWardrobeContext.SaveChanges();
+
         }
 
         //public IEnumerable<User> GetAllUsers()
