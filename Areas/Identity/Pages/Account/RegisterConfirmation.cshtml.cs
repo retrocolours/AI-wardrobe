@@ -5,6 +5,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using AI_Wardrobe.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -19,6 +20,8 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _sender;
+        private readonly UserRepo _userRepo;
+        private readonly UserRoleRepo userRoleRepo;
 
         public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
         {
