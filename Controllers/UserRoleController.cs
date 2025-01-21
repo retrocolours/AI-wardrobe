@@ -9,23 +9,15 @@ namespace RolesDemo.Controllers
 {
 
 
-    public class UserRoleController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserRepo _userRepo;
-
-        public UserRoleController(ApplicationDbContext context
+    public class UserRoleController(ApplicationDbContext context
                                  , UserManager<IdentityUser> userManager
                                  , RoleManager<IdentityRole> roleManager
-                                 , UserRepo userRepo)
-        {
-            _context = context;
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _userRepo = userRepo;
-        }
+                                 , UserRepo userRepo) : Controller
+    {
+        private readonly ApplicationDbContext _context = context;
+        private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly RoleManager<IdentityRole> _roleManager = roleManager;
+        private readonly UserRepo _userRepo = userRepo;
 
         // Show all roles for a specific user.
         public async Task<IActionResult> Detail(string userName)

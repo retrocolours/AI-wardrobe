@@ -4,17 +4,11 @@ using AI_Wardrobe.ViewModels;
 
 namespace AI_Wardrobe.Repositories
 {
-    public class UserRepo
+    public class UserRepo(AiwardrobeContext aiwardrobeContext, ApplicationDbContext appContext)
     {
 
-        private readonly AiwardrobeContext _aiWardrobeContext;
-        private readonly ApplicationDbContext _appContext;
-
-        public UserRepo(AiwardrobeContext aiwardrobeContext, ApplicationDbContext appContext)
-        {
-            _aiWardrobeContext = aiwardrobeContext;
-            _appContext = appContext;
-        }
+        private readonly AiwardrobeContext _aiWardrobeContext = aiwardrobeContext;
+        private readonly ApplicationDbContext _appContext = appContext;
 
         public void AddUser(RegisteredUser user)
         {

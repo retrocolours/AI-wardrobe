@@ -1,0 +1,98 @@
+@model IEnumerable<ShopAllVM>
+@using AI_Wardrobe.ViewModels;
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_Shop" model="@Model" />
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    string currency = "CAD";
+    ShopAllVM? firstRecord = Model.FirstOrDefault();
+
+    if (firstRecord != null)
+    {
+        currency = firstRecord.Currency ?? currency;
+    }
+    <div class="row">
+        <div class="offset-9 col-sm-3 col-md-2">
+            <div id="paypal-button-container" style="text-align:right; padding-right:20px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-9 col-sm-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><span style="color:darkred;">Items</span></th>
+                        <th><span style="color:darkred;">Amount</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span id="totalItems">0</span></td>
+                        <td>$<span id="totalAmount">0</span> <span id="currency">@currency</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="offset-2 col-sm-6">
+            <div class="form-group">
+                <button class="btn btn-primary" style="border-color:#6E0B14; background-color:#6E0B14;"
+                        onclick="location.href='@Url.Content("~/Identity/Account/Login")'">
+                    Login to Purchase
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="https://www.paypal.com/sdk/js?client-id=AT7K3ZVdTuazqSBSP54r1aOw__aaPFj0kumCmdq6dFkvn_2nV9fPkDHuR2FoZwd4eAq2N7mfk5c6MJmE"></script>
+
+<script>
+    paypal.Buttons({
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            const totalAmount = document.getElementById('totalAmount').innerText.trim();
+            const currency = document.getElementById('currency').innerText.trim();
+            
+
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount,
+                        currency: currency
+                    }
+                }]
+            });
+        },
+       
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                window.location.href = `/Home/PayPalConfirmation?TransactionId=${encodeURIComponent(details.id)}&Amount=${encodeURIComponent(details.purchase_units[0].amount.value)}&PayerName=${encodeURIComponent(details.payer.name.given_name)}&CreateTime=${encodeURIComponent(details.create_time)}&PaymentMethod=${encodeURIComponent(details.payment_method)}&Email=${encodeURIComponent(details.payer.email_address)}`;
+            });
+        },
+        onCancel: function () {
+            alert('Transaction was cancelled.');
+        },
+        onError: function () {
+            alert('An error occurred during the transaction.');
+        },
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'paypal'
+        }
+    }).render('#paypal-button-container');
+</script>
+
+
