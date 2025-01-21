@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using AI_Wardrobe.ViewModels;
 
 namespace AI_Wardrobe.Models;
 
@@ -215,4 +216,6 @@ public partial class AiwardrobeContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<AI_Wardrobe.ViewModels.ProductVM> ProductVM { get; set; } = default!;
 }
