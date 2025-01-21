@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using AI_Wardrobe.Data;
 using AI_Wardrobe.Models;
 using AI_Wardrobe.Repositories;
+using AI_Wardrobe.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserRoleRepo>();
 builder.Services.AddScoped<RoleRepo>();
+builder.Services.AddTransient<IEmailService, EmailService>();
+
 
 var app = builder.Build();
 
