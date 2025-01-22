@@ -6,10 +6,7 @@ namespace AI_Wardrobe.ViewModels
     {
         public int ID { get; set; }
 
-        // [Display(Name = "Product Name")]
-        // public string? ProductName { get; set; }
-
-    [Display(Name = "Product Name")]
+        [Display(Name = "Product Name")]
         public string Type { get; set; }
 
         [Display(Name = "Description")]
@@ -20,5 +17,9 @@ namespace AI_Wardrobe.ViewModels
 
         [Display(Name = "Image")]
         public string? Image { get; set; }
+
+        [Display(Name = "Currency")]
+        public string? Currency { get; set; }
+
     }
 }
