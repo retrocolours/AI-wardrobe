@@ -20,26 +20,37 @@ namespace AI_Wardrobe.ViewModels
         [DataType(DataType.Currency)]
         public decimal? Price { get; set; }
 
-        [Display(Name = "Image Url")]
+        [Display(Name = "Image")]
         public string? ImageUrl { get; set; }
 
         [Display(Name = "Gender")]
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Select a gender.")]
         public int? GenderId { get; set; }
 
         [Display(Name = "Size")]
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Select a size.")]
         public int? SizeId { get; set; }
 
         [Display(Name = "Type")]
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Select a type.")]
         public int? TypeId { get; set; }
 
-        public List<SelectListItem> GenderOptions = new List<SelectListItem>();
+        //String placeholder of gender, type, size, exclude from page validation.
+        [ValidateNever]
+        public string? Gender { get; set; }
+        [ValidateNever]
+        public string? Size { get; set; }
+        [ValidateNever]
+        public string? Type { get; set; }
 
-        public List<SelectListItem> SizeOptions = new List<SelectListItem>();
-        
-        public List<SelectListItem> TypeOptions = new List<SelectListItem>();
+
+        //Drop down options
+        public List<SelectListItem>? GenderOptions;
+        public List<SelectListItem>? SizeOptions;
+        public List<SelectListItem>? TypeOptions;
 
     }
 }
