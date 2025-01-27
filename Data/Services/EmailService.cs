@@ -17,8 +17,8 @@ namespace AI_Wardrobe.Data.Services
         {
             var apiKey = _configuration.GetSection("sendgridApiKey").Value;
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("foybuors_17@hotmail.com",
-                                        "Foy");
+            var from = new EmailAddress("aiwardrobe4@gmail.com",
+                                        "AI Wardrobe");
             var to = new EmailAddress(payload.Email);
 
             var msg = MailHelper.CreateSingleEmail(from, to, payload.Subject,
@@ -26,7 +26,5 @@ namespace AI_Wardrobe.Data.Services
 
             return await client.SendEmailAsync(msg);
         }
-
-
     }
 }
