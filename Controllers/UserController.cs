@@ -21,7 +21,7 @@ namespace AIWardrobe.Controllers
                 Email = "email@janesfakedomain.net"
             };
 
-            return Json(user);
+            return View(user);
         }
     }
 }
