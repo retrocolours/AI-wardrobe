@@ -14,7 +14,7 @@ namespace AI_Wardrobe.Controllers
             return View();
         }
 
-        public IActionResult Details()
+        public IActionResult ProductDetail()
         {
             return View();
         }
