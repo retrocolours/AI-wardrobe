@@ -9,7 +9,7 @@ namespace AI_Wardrobe.ViewModels
 
         [Required]
         [Display(Name = "Role Name")]
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
 
     }
 }

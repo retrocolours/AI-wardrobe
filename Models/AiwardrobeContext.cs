@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using AI_Wardrobe.ViewModels;
 
 namespace AI_Wardrobe.Models;
 
