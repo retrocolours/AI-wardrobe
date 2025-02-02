@@ -6,8 +6,6 @@
 # dotenv files
 .env
 
-AI-Wardrobe.csproj.user
-
 # User-specific files
 *.rsuser
 *.suo

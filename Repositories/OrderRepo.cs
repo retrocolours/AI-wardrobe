@@ -97,7 +97,6 @@ namespace AI_Wardrobe.Repositories
             return isSuccess;
         }
 
-
         public IEnumerable<OrderDetail>? GetOrderDetails(int orderId)
         {
             return _aiWardrobeContext.OrderDetails.Where(od => od.Fkorderid == orderId);

@@ -10,7 +10,6 @@ namespace AI_Wardrobe.Controllers
     {
         private readonly ProductRepo _productRepo;
 
-        
         public AdminController(ProductRepo productRepo)
         {
             _productRepo = productRepo;
@@ -114,6 +113,11 @@ namespace AI_Wardrobe.Controllers
 
             return View(productVM);
 
+        }
+
+        public IActionResult ViewUpdateOrder()
+        {
+            return View();
         }
 
         private void FillProductVMOptions(ProductVM vm)

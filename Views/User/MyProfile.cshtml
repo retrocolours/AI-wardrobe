@@ -56,31 +56,3 @@
 
     <a href="#" class="view-orders">View Orders</a>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('input').prop('disabled', true); // Disable inputs while loading
-        $.ajax({
-            url: '/User/GetUser',
-            method: 'GET',
-            success: function (data) {
-                $('#first-name').val(data.firstName);
-                $('#last-name').val(data.lastName);
-                $('#address').val(data.address);
-                $('#apartment').val(data.apartment);
-                $('#city').val(data.city);
-                $('#province').val(data.province);
-                $('#postal-code').val(data.postalCode);
-                $('#phone').val(data.phone);
-                $('#email').val(data.email);
-                $('input').prop('disabled', false); // Enable inputs
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching user data:', error);
-                alert('Error fetching user data.');
-                $('input').prop('disabled', false); // Enable inputs
-            }
-        });
-    });
-</script>
