@@ -1,0 +1,72 @@
+﻿@model string[]
+
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment Environment
+@{
+    var productFolder = "/images/products/";
+    var wwwRootPath = Environment.WebRootPath;
+    var files = System.IO.Directory.GetFiles(wwwRootPath, ("." + productFolder + "*"), System.IO.SearchOption.TopDirectoryOnly)
+                 .Select(file => System.IO.Path.GetFileName(file))
+                 .ToList();
+    var selectedFilename = "";
+}
+
+<div class="modal fade" id="imageBrowserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select an image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="imageList">
+                    @foreach (var file in files)
+                    {
+                        var fullpath = "/images/products/" + @file;
+                        <img src=@fullpath class="image-option" data-filename=@fullpath />
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-select" type="button" class="btn btn-primary" data-bs-dismiss="modal">Select Image</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .selected-image{
+        border: solid 5px blue;
+        background-color: 
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+
+      $(".image-option").on("click", function(){
+        $(".image-option").removeClass("selected-image");
+        $(this).addClass("selected-image");
+
+        selectedFilename = $(this).data("filename");
+      });
+
+
+        $("#btn-select").on("click", function () {
+            var docIds = @Html.Raw("[" + string.Join(",", Model.Select(id => $"'{id}'")) + "]");
+            docIds.forEach(function (docId) {
+                var element = $("#" + docId);
+
+                if (element.is("input[type='text']")) {
+                    element.val(selectedFilename); // Set value for input fields
+                } else if (element.is("img")) {
+                    element.attr("src", selectedFilename); // Set src for images
+                }
+            });
+        });
+
+    });
+</script>

@@ -45,6 +45,7 @@ namespace AI_Wardrobe.Controllers
                 var item = new Item {
                                     Itemprice = productVM.Price,
                                     Itemdescription = productVM.Description,
+                                    Imageurl = productVM.ImageUrl,
                                     Fkitemgenderid = productVM.GenderId,
                                     Fksizeid = productVM.SizeId,
                                     Fktypeid = productVM.TypeId
