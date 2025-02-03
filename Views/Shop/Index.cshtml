@@ -8,12 +8,10 @@
 
 @* <partial name="_Shop" model="@Model" /> *@
 @foreach (var item in Model) {
-    <div>@item.Description</div>
-    <div>@item.Price</div>
-    <div>@item.Currency</div>
-    <div>@item.Image</div>
+
 
     <div class="product"></div>
+    <span>@item.Image</span>
     <img src="@item.Image" alt="@item.Description" class="product-image" />
     <div class="product-details">
         <h3 class="product-title">@item.Description</h3>
