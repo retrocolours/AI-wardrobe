@@ -26,7 +26,7 @@ builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserRoleRepo>();
 builder.Services.AddScoped<RoleRepo>();
 builder.Services.AddTransient<IEmailService, EmailService>();
-
+builder.Services.AddScoped<ProductRepo>();
 
 var app = builder.Build();
 
@@ -53,5 +53,13 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
 
 app.Run();
