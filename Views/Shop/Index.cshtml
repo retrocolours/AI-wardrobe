@@ -1,0 +1,43 @@
+
+
+
+@model IEnumerable<ShopAllVM>
+@using AI_Wardrobe.ViewModels;
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Products</h2>
+
+@if (TempData["CartMessage"] != null)
+{
+    <script>
+        window.onload = function () {
+            alert("@TempData["CartMessage"]");
+        };
+    </script>
+}
+
+<div class="product-list">
+    @foreach (var item in Model)
+    {
+        <div class="product">
+            <img src="@item.Image" alt="@item.Description" class="product-image" />
+            <div class="product-details">
+                <h3 class="product-title">@item.Description</h3>
+                <p class="product-price">@item.Currency @item.Price</p>
+                <a asp-controller="Cart" asp-action="AddToCart" 
+                   asp-route-id="@item.ID" asp-route-type="@item.Type" 
+                   asp-route-description="@item.Description" 
+                   asp-route-price="@item.Price" 
+                   asp-route-image="@item.Image" 
+                   asp-route-currency="@item.Currency" 
+                   class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+    }
+</div>
+
+<a asp-controller="Cart" asp-action="Index" class="btn btn-secondary">Go to Cart</a>

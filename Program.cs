@@ -26,6 +26,7 @@ builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserRoleRepo>();
 builder.Services.AddScoped<RoleRepo>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<ShopAllRepo>();
 builder.Services.AddScoped<ProductRepo>();
 
 var app = builder.Build();

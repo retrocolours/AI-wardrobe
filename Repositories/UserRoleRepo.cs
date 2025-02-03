@@ -3,14 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AI_Wardrobe.Repositories
 {
-    public class UserRoleRepo
+    public class UserRoleRepo(UserManager<IdentityUser> userManager)
     {
-        private readonly UserManager<IdentityUser> _userManager;
-
-        public UserRoleRepo(UserManager<IdentityUser> userManager)
-        {
-            _userManager = userManager;
-        }
+        private readonly UserManager<IdentityUser> _userManager = userManager;
 
         // Assign a role to a user.
         public async Task<bool> AddUserRoleAsync(string email

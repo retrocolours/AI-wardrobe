@@ -4,14 +4,9 @@ using AI_Wardrobe.ViewModels;
 
 namespace AI_Wardrobe.Repositories
 {
-    public class RoleRepo
+    public class RoleRepo(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
-
-        public RoleRepo(ApplicationDbContext context)
-        {
-            this._context = context;
-        }
+        private readonly ApplicationDbContext _context = context;
 
         public List<RoleVM> GetAllRoles()
         {
