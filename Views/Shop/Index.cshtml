@@ -7,6 +7,23 @@
 }
 
 @* <partial name="_Shop" model="@Model" /> *@
+@foreach (var item in Model) {
+    <div>@item.Description</div>
+    <div>@item.Price</div>
+    <div>@item.Currency</div>
+    <div>@item.Image</div>
+
+    <div class="product"></div>
+    <img src="@item.Image" alt="@item.Description" class="product-image" />
+    <div class="product-details">
+        <h3 class="product-title">@item.Description</h3>
+        <p class="product-price">@item.Currency @item.Price</p>
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+
+}
+
 
 @{
     string currency = "CAD";

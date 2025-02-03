@@ -47,7 +47,7 @@ namespace AI_Wardrobe.Repositories
                     Price = i.Itemprice,
                     Image = i.Imageurl
                 }) ?? Enumerable.Empty<ShopAllVM>();
-
+            var list = items.ToList();
             return items!;
         }
     }
