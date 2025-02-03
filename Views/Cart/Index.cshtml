@@ -1,3 +1,7 @@
+
+
+ *@
+
 @model IEnumerable<ShopAllVM>
 @using AI_Wardrobe.ViewModels;
 
@@ -37,4 +41,44 @@
     }
 </div>
 
-<a asp-controller="Cart" asp-action="Index" class="btn btn-secondary">Go to Cart</a>
+<div id="paypal-button-container"></div>
+
+
+<script src="https://www.paypal.com/sdk/js?client-id=AT7K3ZVdTuazqSBSP54r1aOw__aaPFj0kumCmdq6dFkvn_2nV9fPkDHuR2FoZwd4eAq2N7mfk5c6MJmE"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            let totalAmount = 0;
+            document.querySelectorAll(".product-price").forEach(priceElement => {
+                totalAmount += parseFloat(priceElement.innerText.split(' ')[1]);
+            });
+            
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount.toFixed(2),
+                        currency_code: "CAD"
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction completed by ' + details.payer.name.given_name);
+                window.location.href = `/Home/PayPalConfirmation?TransactionId=${encodeURIComponent(details.id)}&Amount=${encodeURIComponent(details.purchase_units[0].amount.value)}&PayerName=${encodeURIComponent(details.payer.name.given_name)}&CreateTime=${encodeURIComponent(details.create_time)}&Email=${encodeURIComponent(details.payer.email_address)}`;
+            });
+        },
+        onCancel: function() {
+            alert('Transaction was cancelled.');
+        },
+        onError: function() {
+            alert('An error occurred during the transaction.');
+        },
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'paypal'
+        }
+    }).render('#paypal-button-container');
+</script>
