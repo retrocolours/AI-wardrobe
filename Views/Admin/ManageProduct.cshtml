@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-4">
         <h4>Product Image</h4>
-        <img class="img-fluid" id="img-image" src=@Model.ImageUrl />
+        <img class="img-fluid" id="img-image" src=@Model.ImageUrl style="max-height: 100%; width: auto; object-fit: contain;" />
         <div>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imageBrowserModal">Browse</button>
             <button class="btn btn-primary">Upload</button>

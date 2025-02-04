@@ -1,0 +1,68 @@
+﻿@model string[];
+
+
+<div class="modal fade" id="uploadImageModal" tabindex="-1" aria-labelledby="uploadImageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadImageModalLabel">Upload Image</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Image Upload Form with AJAX -->
+        @using (Html.BeginForm("UploadImage", "Image", FormMethod.Post, new { id = "imageUploadForm", enctype = "multipart/form-data", @class = "form-inline" }))
+        {
+            <div class="mb-3">
+                <label for="image" class="form-label">Select Image</label>
+                <input class="form-control" type="file" id="image" name="image" accept="image/*" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        }
+        <div id="uploadMessage"></div> <!-- Message for success or error -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+    // Submit the image upload form via AJAX
+    $('#imageUploadForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent form from refreshing the page
+
+        var formData = new FormData(this); // Create FormData object with form content
+
+        // Perform AJAX request
+        $.ajax({
+            url: '@Url.Action("UploadImage", "Admin")', // Specify the URL of the controller action
+            type: 'POST',
+            data: formData,
+            contentType: false, // Do not set content type for FormData
+            processData: false, // Do not process the data
+            success: function (response) {
+                // Show success message or do something with the response
+                var docIds = @Html.Raw("[" + string.Join(",", Model.Select(id => $"'{id}'")) + "]");
+                docIds.forEach(function (docId) {
+                var element = $("#" + docId);
+
+                if (element.is("input[type='text']")) {
+                    element.val(response.filePath); // Set value for input fields
+                } else if (element.is("img")) {
+                    element.attr("src", response.filePath); // Set src for images
+                }
+                });
+
+
+                $('#uploadImageModal').modal('hide'); // Close the modal
+            },
+            error: function (xhr, status, error) {
+                // Show error message if upload fails
+                $('#uploadMessage').html('<div class="alert alert-danger">There was an error uploading the image.</div>');
+            }
+        });
+    });
+});
+</script>
