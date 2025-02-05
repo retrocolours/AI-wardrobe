@@ -3,6 +3,7 @@ using AI_Wardrobe.ViewModels;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using AI_Wardrobe.Repositories;
 using AI_Wardrobe.Models;
+using System.Text.RegularExpressions;
 
 namespace AI_Wardrobe.Controllers
 {
@@ -45,6 +46,7 @@ namespace AI_Wardrobe.Controllers
                 var item = new Item {
                                     Itemprice = productVM.Price,
                                     Itemdescription = productVM.Description,
+                                    Imageurl = productVM.ImageUrl,
                                     Fkitemgenderid = productVM.GenderId,
                                     Fksizeid = productVM.SizeId,
                                     Fktypeid = productVM.TypeId
@@ -120,11 +122,74 @@ namespace AI_Wardrobe.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(IFormFile image)
+        {
+            // Ensure a file is uploaded
+            if (image != null && image.Length > 0)
+            {
+                try
+                {
+                    // Get file name and path
+                    var fileName = ConvertToHtmlSafeString(Path.GetFileName(image.FileName));
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images/products", fileName);
+
+                    // Ensure the directory exists
+                    var directoryPath = Path.GetDirectoryName(path);
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+
+                    // Save the file asynchronously to the server
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+
+                    var src = Path.Combine("/images/products", fileName);
+                    // Return a success message as JSON
+                    return Json(new { success = true, message = "Image uploaded successfully!", filePath = src });
+                }
+                catch (Exception ex)
+                {
+                    // Return error message as JSON
+                    return Json(new { success = false, message = "Error uploading image: " + ex.Message });
+                }
+            }
+
+            // Return an error message if no file was uploaded
+            return Json(new { success = false, message = "No image selected!" });
+        }
+
+        public ActionResult GetFiles()
+        {
+            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images/products");
+
+            // Get all files in the directory
+            var files = Directory.GetFiles(directoryPath);
+
+            // Return just the filenames (or you can adjust as needed)
+            var fileNames = files.Select(f => Path.GetFileName(f)).ToList();
+
+            return PartialView("_ImageList", fileNames);  // Return the partial view with the files
+        }
+
         private void FillProductVMOptions(ProductVM vm)
         {
             vm.GenderOptions = _productRepo.GetGenderOptions();
             vm.SizeOptions = _productRepo.GetSizeOptions();
             vm.TypeOptions = _productRepo.GetTypeOptions();
         }
+
+        private string ConvertToHtmlSafeString(string input)
+        {
+            string safeString = input.Replace(" ", "_");
+            safeString = Regex.Replace(safeString, @"[^a-zA-Z0-9\-_\.]", string.Empty);
+
+
+            return safeString;
+        }
+
     }
 }

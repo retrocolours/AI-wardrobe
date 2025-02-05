@@ -1,0 +1,11 @@
+﻿@model List<string>
+
+@foreach (var file in Model)
+{
+    var fullpath = "/images/products/" + file;
+    <div class="col">
+        <div class="card">
+            <img src="@fullpath" class="image-option" data-filename="@fullpath" />
+        </div>
+    </div>
+}
