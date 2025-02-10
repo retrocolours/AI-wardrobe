@@ -28,4 +28,20 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+public IActionResult PayPalConfirmation(string TransactionId, string Amount, string PayerName, string CreateTime, string Email)
+{
+    if (string.IsNullOrEmpty(TransactionId))
+    {
+        return BadRequest("Invalid transaction.");
+    }
+    ViewBag.TransactionId = TransactionId;
+    ViewBag.Amount = Amount;
+    ViewBag.PayerName = PayerName;
+    ViewBag.CreateTime = CreateTime;
+    ViewBag.Email = Email;
+    return View();
+}
+
+
 }
