@@ -45,6 +45,7 @@ namespace AI_Wardrobe.Controllers
             {
                 var item = new Item {
                                     Itemprice = productVM.Price,
+                                    ItemName = productVM.Name,
                                     Itemdescription = productVM.Description,
                                     Imageurl = productVM.ImageUrl,
                                     Fkitemgenderid = productVM.GenderId,
@@ -72,6 +73,7 @@ namespace AI_Wardrobe.Controllers
                 var vm = new ProductVM
                 {
                     Id = item.Itemid,
+                    Name = item.ItemName,
                     Description = item.Itemdescription,
                     Price = item.Itemprice,
                     ImageUrl = item.Imageurl,
@@ -100,6 +102,7 @@ namespace AI_Wardrobe.Controllers
                 {
                     Itemid = productVM.Id,
                     Itemprice = productVM.Price,
+                    ItemName = productVM.Name,
                     Itemdescription = productVM.Description,
                     Imageurl = productVM.ImageUrl,
                     Fkitemgenderid = productVM.GenderId,

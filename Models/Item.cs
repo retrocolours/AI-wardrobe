@@ -21,6 +21,8 @@ public partial class Item
 
     public int? Fktypeid { get; set; }
 
+    public string? ItemName { get; set; }
+
     public virtual ItemGender? Fkitemgender { get; set; }
 
     public virtual Size? Fksize { get; set; }
