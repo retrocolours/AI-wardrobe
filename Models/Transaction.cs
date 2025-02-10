@@ -1,19 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace AI_Wardrobe.Models;
-
-public partial class Transaction
+namespace AI_Wardrobe.Models
 {
-    public int Transactionid { get; set; }
+    public class Transaction
+    {
+        public int Transactionid { get; set; } // Unique ID for transaction
 
-    public decimal? Totalamount { get; set; }
+        public string? PayPalTransactionId { get; set; } // PayPal Transaction ID
 
-    public DateOnly? Transactiondate { get; set; }
+        public decimal? Totalamount { get; set; } // Transaction Amount
 
-    public string? Transactionstatus { get; set; }
+        public DateTime? Transactiondate { get; set; }  // Date of transaction
 
-    public int? Fkorderid { get; set; }
+        public string? Transactionstatus { get; set; } // Completed, Failed, etc.
 
-    public virtual Order? Fkorder { get; set; }
+        public string? PayerName { get; set; } // Payer's Name from PayPal
+
+        public string? PayerEmail { get; set; } // Payer's Email from PayPal
+
+        public string? Currency { get; set; } // Currency of the transaction (USD, CAD, etc.)
+
+        public string? PaymentMethod { get; set; } // PayPal, Credit Card, etc.
+
+        public int? Fkorderid { get; set; } // Foreign key to Order table
+
+        public virtual Order? Fkorder { get; set; } // Relationship with Order
+    }
 }

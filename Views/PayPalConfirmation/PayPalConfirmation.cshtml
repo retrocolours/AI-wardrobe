@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Transaction Confirmation";
+}
+
+<h2>Transaction Completed</h2>
+
+<p><strong>Transaction ID:</strong> @ViewBag.TransactionId</p>
+<p><strong>Payer Name:</strong> @ViewBag.PayerName</p>
+<p><strong>Email:</strong> @ViewBag.Email</p>
+<p><strong>Amount:</strong> $@ViewBag.Amount</p>
+<p><strong>Transaction Date:</strong> @ViewBag.CreateTime</p>
+
+<a href="/" class="btn btn-primary">Return to Home</a>
