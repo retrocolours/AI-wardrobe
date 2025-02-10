@@ -17,6 +17,31 @@ namespace AI_Wardrobe.Repositories
 
         }
 
+        public MyProfileVM? getMyProfile(string email)
+        {
+            return _aiWardrobeContext.RegisteredUsers
+          .Join(_aiWardrobeContext.Addresses,
+                i => i.Userid,
+                s => s.Fkuserid,
+                (i, s) => new { i, s })
+          .Where(x => x.i.Email == email)
+          .Select(x => new MyProfileVM
+          {
+              Id = x.i.Userid,
+              FirstName = x.i.Firstname,
+              LastName = x.i.Lastname,
+              StreetNumber = x.s.Streetnum,
+              StreetName = x.s.Streetname,
+              Apartment = x.s.Apartmentnum,
+              City = x.s.City,
+              Province = x.s.Province,
+              PostalCode = x.s.Postalcode,
+              Phone = x.i.Phone,
+              Email = x.i.Email
+          })
+          .FirstOrDefault();
+        }
+
         //public IEnumerable<User> GetAllUsers()
         //{
         //    var users = _context.Users;

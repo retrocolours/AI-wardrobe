@@ -152,90 +152,63 @@ body {
 /* Profile Page Styles */
 .profile-container {
     max-width: 600px;
-    margin: 30px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
 }
 
-    .profile-container h2 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-        color: #333;
-    }
+.info-box {
+    border: 2px solid #007bff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
 
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
     .input-group label {
         display: block;
-        font-size: 1rem;
-        margin-bottom: 5px;
-        color: #333;
+        font-weight: bold;
     }
 
     .input-group input {
         width: 100%;
-        padding: 10px;
-        font-size: 1rem;
+        padding: 8px;
         border: 1px solid #ccc;
-        border-radius: 5px;
-        transition: border-color 0.3s ease;
+        border-radius: 4px;
+        background: #f3f3f3;
     }
 
-        .input-group input:focus {
-            border-color: #ff6f61;
-            outline: none;
+.input-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .input-row .input-group {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+        .input-row .input-group:last-child {
+            margin-right: 0;
         }
 
-.btn {
-    display: inline-block;
+.btn.black-btn {
+    background: black;
+    color: white;
     padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #333;
     border: none;
     border-radius: 20px;
-    text-align: center;
     cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
+    display: inline-block;
 }
-
-    .btn:hover {
-        background-color: #ff6f61;
-    }
-
-.view-orders {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-}
-
-    .view-orders:hover {
-        background-color: #ff6f61;
-    }
-
-
 
 /* Footer Section */
 .footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
 .footer-links ul {

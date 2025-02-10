@@ -1,6 +1,6 @@
 ﻿namespace AIWardrobe.Models
 {
-    public class User
+    public class MyProfileVM
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
