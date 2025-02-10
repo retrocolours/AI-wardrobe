@@ -1,4 +1,4 @@
-﻿@Model AI_Wardrobe.ViewModels.MyProfileVM
+﻿@model AI_Wardrobe.ViewModels.MyProfileVM
 
 @{
     ViewData["Title"] = "My Profile";
@@ -24,8 +24,12 @@
                 </div>
             </div>
             <div class="input-group">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" value="@Model.Address" disabled />
+                <label for="address">Street Number</label>
+                <input type="text" id="address" name="address" value="@Model.StreetNumber" disabled />
+            </div>
+            <div class="input-group">
+                <label for="address">Street Name</label>
+                <input type="text" id="address" name="address" value="@Model.StreetName" disabled />
             </div>
             <div class="input-group">
                 <label for="apartment">Apartment, Suite (Optional)</label>

@@ -1,5 +1,4 @@
 ﻿using AI_Wardrobe.Repositories;
-using AIWardrobe.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AIWardrobe.Controllers
