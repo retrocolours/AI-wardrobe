@@ -44,14 +44,19 @@
 <div id="paypal-button-container"></div>
 
 
-<script src="https://www.paypal.com/sdk/js?client-id=AT7K3ZVdTuazqSBSP54r1aOw__aaPFj0kumCmdq6dFkvn_2nV9fPkDHuR2FoZwd4eAq2N7mfk5c6MJmE"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AT7K3ZVdTuazqSBSP54r1aOw__aaPFj0kumCmdq6dFkvn_2nV9fPkDHuR2FoZwd4eAq2N7mfk5c6MJmE&currency=CAD"></script>
+
 <script>
     paypal.Buttons({
         createOrder: function(data, actions) {
             let totalAmount = 0;
             document.querySelectorAll(".product-price").forEach(priceElement => {
-                totalAmount += parseFloat(priceElement.innerText.split(' ')[1]);
-            });
+    console.log('Original text:', priceElement.innerText);
+    let priceMatch = priceElement.innerText.match(/([\d.]+)/);
+    if (priceMatch) {
+        totalAmount += parseFloat(priceMatch[1]);
+    }
+});
             
             return actions.order.create({
                 purchase_units: [{
@@ -72,6 +77,7 @@
             alert('Transaction was cancelled.');
         },
         onError: function() {
+
             alert('An error occurred during the transaction.');
         },
         style: {
