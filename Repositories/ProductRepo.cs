@@ -32,7 +32,7 @@ namespace AI_Wardrobe.Repositories
                    select new ProductVM
                    {
                        Id = i.Itemid,
-                       Name = i.ItemName,
+                       Name = i.Itemname,
                        Description = i.Itemdescription,
                        Price = i.Itemprice,
                        GenderId = i.Fkitemgenderid,

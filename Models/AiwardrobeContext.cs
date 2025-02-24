@@ -83,12 +83,12 @@ public partial class AiwardrobeContext : DbContext
             entity.Property(e => e.Imageurl)
                 .HasMaxLength(255)
                 .HasColumnName("imageurl");
-            entity.Property(e => e.ItemName)
-                .HasMaxLength(255)
-                .HasColumnName("itemName");
             entity.Property(e => e.Itemdescription)
-                .HasMaxLength(255)
+                .HasMaxLength(1000)
                 .HasColumnName("itemdescription");
+            entity.Property(e => e.Itemname)
+                .HasMaxLength(100)
+                .HasColumnName("itemname");
             entity.Property(e => e.Itemprice).HasColumnName("itemprice");
             entity.Property(e => e.Itemtype)
                 .HasMaxLength(255)

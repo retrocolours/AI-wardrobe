@@ -17,7 +17,7 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     {
         return View();
     }
-
+    
     public IActionResult Privacy()
     {
         return View();

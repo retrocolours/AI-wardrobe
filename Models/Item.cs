@@ -9,6 +9,8 @@ public partial class Item
 
     public string? Itemtype { get; set; }
 
+    public string? Itemname { get; set; }
+
     public string? Itemdescription { get; set; }
 
     public decimal? Itemprice { get; set; }
@@ -20,8 +22,6 @@ public partial class Item
     public int? Fksizeid { get; set; }
 
     public int? Fktypeid { get; set; }
-
-    public string? ItemName { get; set; }
 
     public virtual ItemGender? Fkitemgender { get; set; }
 
