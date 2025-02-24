@@ -6,7 +6,7 @@ namespace AI_Wardrobe.Models
     {
         public int Transactionid { get; set; } 
 
-        public string? PayPalTransactionId { get; set; } 
+        // public string? PayPalTransactionId { get; set; } 
 
         public decimal? Totalamount { get; set; } 
 
@@ -14,12 +14,12 @@ namespace AI_Wardrobe.Models
 
         public string? Transactionstatus { get; set; } 
 
-        public string? PayerName { get; set; } 
+        // public string? PayerName { get; set; } 
 
-        public string? PayerEmail { get; set; } 
-        public string? Currency { get; set; } 
+        // public string? PayerEmail { get; set; } 
+        // public string? Currency { get; set; } 
 
-        public string? PaymentMethod { get; set; } 
+        // public string? PaymentMethod { get; set; } 
 
         public int? Fkorderid { get; set; } 
 

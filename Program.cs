@@ -29,6 +29,7 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<ShopAllRepo>();
 builder.Services.AddScoped<ProductRepo>();
 builder.Services.AddScoped<TransactionRepo>();
+builder.Services.AddScoped<OrderRepo>();
 
 
 var app = builder.Build();

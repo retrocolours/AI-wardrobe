@@ -14,23 +14,20 @@ namespace AI_Wardrobe.Repositories
             _aiWardrobeContext = aiWardrobeContext;
         }
 
-        public bool AddOrder(Order order)
+     public int? AddOrder(Order order)
         {
-            bool isSuccess = false;
-
             try
             {
                 _aiWardrobeContext.Orders.Add(order);
                 _aiWardrobeContext.SaveChanges();
+                return order.Orderid;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error adding order:" + $" {ex.Message}");
-                isSuccess = false;
+                return null;
             }
-
-            return isSuccess;
-        }
+        } 
 
         public bool EditOrderStatus(int id, string status)
         {

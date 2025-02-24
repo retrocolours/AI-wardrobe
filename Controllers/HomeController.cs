@@ -13,12 +13,15 @@ namespace AI_Wardrobe.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly TransactionRepo _transactionRepo;
 
+        private readonly OrderRepo _orderRepo;
 
-        public HomeController(ILogger<HomeController> logger, TransactionRepo transactionRepo)
-        {
-            _logger = logger;
-            _transactionRepo = transactionRepo;
-        }
+
+      public HomeController(ILogger<HomeController> logger, TransactionRepo transactionRepo, OrderRepo orderRepo)
+{
+    _logger = logger;
+    _transactionRepo = transactionRepo;
+    _orderRepo = orderRepo;
+}
 
         public IActionResult Index()
         {
@@ -55,7 +58,7 @@ namespace AI_Wardrobe.Controllers
                 PayerName = PayerName,
                 PayerEmail = Email,
                 Amount = decimal.TryParse(Amount, out var amt) ? amt : null,
-                CreateTime = DateTime.TryParse(CreateTime, out var date) ? date : DateTime.UtcNow,
+                CreateTime = DateTime.UtcNow,
                 PaymentMethod = "PayPal",
             };
 

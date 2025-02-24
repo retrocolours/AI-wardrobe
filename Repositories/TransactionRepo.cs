@@ -8,11 +8,13 @@ namespace AI_Wardrobe.Repositories
 {
     public class TransactionRepo
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AiwardrobeContext _context;
+        private readonly UserRepo _userRepo;
 
-        public TransactionRepo(ApplicationDbContext context)
+        public TransactionRepo(AiwardrobeContext context, UserRepo userRepo)
         {
             _context = context;
+            _userRepo = userRepo;
         }
 
 
@@ -21,14 +23,14 @@ namespace AI_Wardrobe.Repositories
             return _context.Transactions?
                 .Select(t => new TransactionVM
                 {
-                    TransactionId = t.PayPalTransactionId,
-                    PayerName = t.PayerName,
-                    PayerEmail = t.PayerEmail,
+                    // TransactionId = t.PayPalTransactionId,
+                    // PayerName = t.PayerName,
+                    // PayerEmail = t.PayerEmail,
                     Amount = t.Totalamount, 
                     CreateTime = t.Transactiondate, 
                     Transactionstatus = t.Transactionstatus,
-                    PaymentMethod = t.PaymentMethod,
-                    Currency = t.Currency
+                    // PaymentMethod = t.PaymentMethod,
+                    // Currency = t.Currency
                 }) ?? Enumerable.Empty<TransactionVM>();
         }
 
@@ -51,20 +53,31 @@ namespace AI_Wardrobe.Repositories
         {
             try
             {
+
+                //FIND LOGGED IN RegisterdUser USER ID 
+                var order = new Order{
+                    Orderstatus = "Pending",
+                    Orderdate = DateOnly.FromDateTime(DateTime.UtcNow),
+                    Fkuserid = 1 // users id 
+                };
+                // CALL ORDER REPO TO ADD ORDER
+
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+
+    
                 var newTransaction = new Transaction
                 {
-                    Transactionid = GetNextTransactionId(),
-                    PayPalTransactionId = transaction.TransactionId, 
-                    PayerName = transaction.PayerName,
-                    PayerEmail = transaction.PayerEmail,
+                    // Transactionid = GetNextTransactionId(),
+                    // PayPalTransactionId = transaction.TransactionId, 
                     Totalamount = transaction.Amount, 
                     Transactiondate = transaction.CreateTime ?? DateTime.UtcNow, 
                     Transactionstatus = transaction.Transactionstatus ?? "Completed",
-                    PaymentMethod = transaction.PaymentMethod,
-                    Currency = transaction.Currency
+                    Fkorderid = order.Orderid,
+
                 };
 
-                _context.Transactions!.Add(newTransaction);
+                _context.Transactions.Add(newTransaction);
                 _context.SaveChanges();
                 return true;
             }
