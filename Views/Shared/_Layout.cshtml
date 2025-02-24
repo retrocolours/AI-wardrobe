@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,7 +15,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AI Wardrobe</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="ViewList">View List</a>
+                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="ViewList">View List</a> *@
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav"
@@ -31,7 +29,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
