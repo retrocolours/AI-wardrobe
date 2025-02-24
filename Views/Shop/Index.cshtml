@@ -1,8 +1,6 @@
-
-
-
-@model IEnumerable<ShopAllVM>
+﻿@model IEnumerable<ShopAllVM>
 @using AI_Wardrobe.ViewModels;
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Products";
@@ -10,15 +8,7 @@
 }
 
 <h2>All Products</h2>
-
-@if (TempData["CartMessage"] != null)
-{
-    <script>
-        window.onload = function () {
-            alert("@TempData["CartMessage"]");
-        };
-    </script>
-}
+<div id="cart-message" style="display: none; padding: 10px; background-color: lightgreen; color: darkgreen;"></div>
 
 <div class="product-list">
     @foreach (var item in Model)
@@ -27,17 +17,62 @@
             <img src="@item.Image" alt="@item.Description" class="product-image" />
             <div class="product-details">
                 <h3 class="product-title">@item.Description</h3>
-                <p class="product-price">@item.Currency @item.Price</p>
-                <a asp-controller="Cart" asp-action="AddToCart" 
-                   asp-route-id="@item.ID" asp-route-type="@item.Type" 
-                   asp-route-description="@item.Description" 
-                   asp-route-price="@item.Price" 
-                   asp-route-image="@item.Image" 
-                   asp-route-currency="@item.Currency" 
-                   class="btn btn-primary">Add to Cart</a>
+                <p class="product-price">@item.Currency @item.Price?.ToString("0.00")</p>
+                <button class="btn btn-primary add-to-cart"
+                        data-product-id="@item.ID"
+                        data-product-name="@item.Description"
+                        data-product-price="@(item.Price.HasValue ? item.Price.Value.ToString("0.00") : "0")"
+                        data-product-currency="@item.Currency">
+                    Add to Cart
+                </button>
             </div>
         </div>
     }
 </div>
 
-<a asp-controller="Cart" asp-action="Index" class="btn btn-secondary">Go to Cart</a>
+<a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-secondary">Go to Cart</a>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart").click(function () {
+                var productId = $(this).data("product-id");
+                var productName = $(this).data("product-name");
+                var productPrice = parseFloat($(this).data("product-price")) || 0;
+
+                $.ajax({
+                    url: "/shopping-cart/add",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ productId, productName, price: productPrice }),
+                    success: function (response) {
+                        console.log("Cart updated:", response);
+                        $("#cart-message").text(response.message).fadeIn().delay(2000).fadeOut();
+                    },
+                    error: function (xhr) {
+                        alert("Error: " + (xhr.responseJSON?.message || "Something went wrong."));
+                    }
+                });
+            });
+
+            $(".remove-from-cart").click(function () {
+                var productId = $(this).data("product-id");
+
+                $.ajax({
+                    url: "/shopping-cart/remove",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ productId }),
+                    success: function (response) {
+                        console.log("Cart updated:", response);
+                        $("#cart-message").text(response.message).fadeIn().delay(2000).fadeOut();
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        alert("Error: " + (xhr.responseJSON?.message || "Something went wrong."));
+                    }
+                });
+            });
+        });
+    </script>
+}
