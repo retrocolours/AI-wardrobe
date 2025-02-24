@@ -1,0 +1,88 @@
+﻿@model List<CartItem>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Shopping Cart</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="cart-item-@item.ProductId">
+                    <td>@item.ProductName</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        <button class="btn btn-danger remove-from-cart" data-product-id="@item.ProductId">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a href="/shop/index" class="btn btn-primary">Continue Shopping</a>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart").click(function () {
+                var productId = $(this).data("product-id");
+                var productName = $(this).data("product-name");
+                var productPrice = parseFloat($(this).data("product-price")) || 0;
+
+                $.ajax({
+                    url: "/shopping-cart/add",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ productId, productName, price: productPrice }),
+                    success: function (response) {
+                        console.log("Success:", response);
+                        $("#cart-message").text(response.message).fadeIn().delay(2000).fadeOut();
+                    },
+                    error: function (xhr) {
+                        alert("Error adding to cart: " + xhr.responseText);
+                    }
+                });
+            });
+
+            $(".remove-from-cart").click(function () {
+                var productId = $(this).data("product-id");
+                var row = $("#cart-item-" + productId);
+
+                $.ajax({
+                    url: "/shopping-cart/remove",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ productId }),
+                    success: function (response) {
+                        console.log("Success:", response);
+                        row.fadeOut(300, function () { $(this).remove(); });
+                    },
+                    error: function (xhr) {
+                        alert("Error removing item from cart.");
+                    }
+                });
+            });
+        });
+    </script>
+}

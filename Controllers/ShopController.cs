@@ -24,19 +24,19 @@ namespace AI_Wardrobe.Controllers
             return View();
         }
 
-        public IActionResult Cart()
-        {
-            return View();
-        }
+        //public IActionResult Cart()
+        //{
+        //    return View();
+        //}
 
         public IActionResult ProductDetail()
         {
             return View();
         }
 
-        public IActionResult ProductList()
-        {
-            return View();
-        }
+        //public IActionResult ProductList()
+        //{
+        //    return View();
+        //}
     }
 }
