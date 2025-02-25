@@ -14,14 +14,22 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AI Wardrobe</a>
-                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="ViewList">View List</a> *@
-
+                <ul class="navbar-nav">
+                    <li><a class="nav-link text-dark" asp-controller="Shop" asp-action="Index">Shop</a></li>
+                    <li><a class="nav-link text-dark" href="#">Women</a></li>
+                    <li><a class="nav-link text-dark" href="#">Men</a></li>
+                    <li><a class="nav-link text-dark" href="#">Our Mission</a></li>
+                </ul>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AI Wardrobe</a>
+            @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="ViewList">View List</a> *@
+
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <partial name="_LoginPartial" />

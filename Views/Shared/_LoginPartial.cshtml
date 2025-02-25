@@ -11,37 +11,37 @@
     @* //todo add filter next time, only user's with admin role should see this link *@
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-        
+
     </li>
-    <li><a class="nav-link text-dark" asp-controller="Shop" asp-action="Index">Shop</a></li>
-    <li><a class="nav-link text-dark" href="#">Women</a></li>
-    <li><a class="nav-link text-dark" href="#">Men</a></li>
-    <li><a class="nav-link text-dark" href="#">Our Mission</a></li>
+
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Shopping Cart</a>
+        <a class="nav-link text-dark"  asp-controller="Cart" asp-action="Index">
+            <img class="shopping-bag" width="24px" height="24px" src="~/images/icons/shopping-bag.svg" alt="shopping bag"></img>
+        </a>
     </li>
 
     @if (SignInManager != null && UserManager != null && SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                Hello @User.Identity?.Name!
-            </a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
-                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                            <img class="user-icon" width="24px" height="24px" src="~/images/icons/person.svg" alt="user"></img>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                                              asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                                <img class="user-icon" width="24px" height="24px" src="~/images/icons/logout.svg" alt="logout"></img>
+
+                                        </form>
+                                    </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                    </li>
     }
 </ul>
