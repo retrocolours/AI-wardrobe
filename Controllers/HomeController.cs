@@ -1,16 +1,30 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AI_Wardrobe.Models;
+using System.Linq;
 
 namespace AI_Wardrobe.Controllers;
 
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger = logger;
+    private readonly ILogger<HomeController> _logger;
+    private readonly AiwardrobeContext _context;
+
+    public HomeController(ILogger<HomeController> logger, AiwardrobeContext context)
+    {
+        _logger = logger;
+        _context = context;
+    }
 
     public IActionResult Index()
     {
-        return View();
+        // Get featured products to display on the home page
+        var featuredProducts = _context.Items
+            .OrderBy(i => Guid.NewGuid()) // Random ordering
+            .Take(4)
+            .ToList();
+
+        return View(featuredProducts);
     }
 
     public IActionResult ViewList()
@@ -29,19 +43,17 @@ public class HomeController(ILogger<HomeController> logger) : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-public IActionResult PayPalConfirmation(string TransactionId, string Amount, string PayerName, string CreateTime, string Email)
-{
-    if (string.IsNullOrEmpty(TransactionId))
+    public IActionResult PayPalConfirmation(string TransactionId, string Amount, string PayerName, string CreateTime, string Email)
     {
-        return BadRequest("Invalid transaction.");
+        if (string.IsNullOrEmpty(TransactionId))
+        {
+            return BadRequest("Invalid transaction.");
+        }
+        ViewBag.TransactionId = TransactionId;
+        ViewBag.Amount = Amount;
+        ViewBag.PayerName = PayerName;
+        ViewBag.CreateTime = CreateTime;
+        ViewBag.Email = Email;
+        return View();
     }
-    ViewBag.TransactionId = TransactionId;
-    ViewBag.Amount = Amount;
-    ViewBag.PayerName = PayerName;
-    ViewBag.CreateTime = CreateTime;
-    ViewBag.Email = Email;
-    return View();
-}
-
-
 }
