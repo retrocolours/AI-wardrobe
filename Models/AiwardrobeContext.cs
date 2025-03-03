@@ -204,7 +204,22 @@ public partial class AiwardrobeContext : DbContext
             entity.ToTable("Transaction");
 
             entity.Property(e => e.Transactionid).HasColumnName("transactionid");
+            entity.Property(e => e.Currency)
+                .HasMaxLength(20)
+                .HasColumnName("currency");
             entity.Property(e => e.Fkorderid).HasColumnName("fkorderid");
+            entity.Property(e => e.Payeremail)
+                .HasMaxLength(100)
+                .HasColumnName("payeremail");
+            entity.Property(e => e.Payername)
+                .HasMaxLength(100)
+                .HasColumnName("payername");
+            entity.Property(e => e.Paymentmethod)
+                .HasMaxLength(20)
+                .HasColumnName("paymentmethod");
+            entity.Property(e => e.Paypaltransactionid)
+                .HasMaxLength(100)
+                .HasColumnName("paypaltransactionid");
             entity.Property(e => e.Totalamount).HasColumnName("totalamount");
             entity.Property(e => e.Transactiondate).HasColumnName("transactiondate");
             entity.Property(e => e.Transactionstatus)

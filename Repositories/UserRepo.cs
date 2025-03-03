@@ -17,6 +17,13 @@ namespace AI_Wardrobe.Repositories
 
         }
 
+        public int? GetUserId(String email)
+        {
+            var registerdUser = _aiWardrobeContext.RegisteredUsers.Where((user) => user.Email == email).FirstOrDefault();
+            Console.Write($"registerdUser: {email}, id: {registerdUser?.Userid}");
+            return registerdUser?.Userid;
+        }
+
         //public IEnumerable<User> GetAllUsers()
         //{
         //    var users = _context.Users;

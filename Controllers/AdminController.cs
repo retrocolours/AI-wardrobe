@@ -4,20 +4,28 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using AI_Wardrobe.Repositories;
 using AI_Wardrobe.Models;
 using System.Text.RegularExpressions;
+using System.Security.Claims;
 
 namespace AI_Wardrobe.Controllers
 {
     public class AdminController : Controller
     {
         private readonly ProductRepo _productRepo;
+        private readonly UserRepo _userRepo;
 
-        public AdminController(ProductRepo productRepo)
+
+        public AdminController(ProductRepo productRepo, UserRepo userRepo)
         {
             _productRepo = productRepo;
+            _userRepo = userRepo;
         }
 
         public IActionResult Index()
         {
+                var email = User.FindFirstValue(ClaimTypes.Email);
+                var userId = _userRepo.GetUserId(email);
+                //insert query
+           
             return View();
         }
 
@@ -36,7 +44,7 @@ namespace AI_Wardrobe.Controllers
 
             return View(productVM);
         }
-
+            
         [HttpPost]
         public IActionResult CreateProduct(ProductVM productVM)
         {
