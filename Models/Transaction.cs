@@ -13,6 +13,16 @@ public partial class Transaction
 
     public string? Transactionstatus { get; set; }
 
+    public string? Paypaltransactionid { get; set; }
+
+    public string? Payername { get; set; }
+
+    public string? Payeremail { get; set; }
+
+    public string? Currency { get; set; }
+
+    public string? Paymentmethod { get; set; }
+
     public int? Fkorderid { get; set; }
 
     public virtual Order? Fkorder { get; set; }

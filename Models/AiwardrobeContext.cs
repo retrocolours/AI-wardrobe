@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using AI_Wardrobe.ViewModels;
 
 namespace AI_Wardrobe.Models;
 
@@ -17,8 +16,6 @@ public partial class AiwardrobeContext : DbContext
     }
 
     public virtual DbSet<Address> Addresses { get; set; }
-
-    public virtual DbSet<DbVersion> DbVersions { get; set; }
 
     public virtual DbSet<Item> Items { get; set; }
 
@@ -36,7 +33,9 @@ public partial class AiwardrobeContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=127.0.0.1; Port=5432;Database=aiwardrobe; Username=postgres;Password=P@ssw0rd!");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -71,15 +70,6 @@ public partial class AiwardrobeContext : DbContext
                 .HasConstraintName("address_user_id_fk");
         });
 
-        modelBuilder.Entity<DbVersion>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("DbVersion");
-
-            entity.Property(e => e.Versionnum).HasColumnName("versionnum");
-        });
-
         modelBuilder.Entity<Item>(entity =>
         {
             entity.HasKey(e => e.Itemid).HasName("Item_pkey");
@@ -94,8 +84,11 @@ public partial class AiwardrobeContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("imageurl");
             entity.Property(e => e.Itemdescription)
-                .HasMaxLength(255)
+                .HasMaxLength(1000)
                 .HasColumnName("itemdescription");
+            entity.Property(e => e.Itemname)
+                .HasMaxLength(100)
+                .HasColumnName("itemname");
             entity.Property(e => e.Itemprice).HasColumnName("itemprice");
             entity.Property(e => e.Itemtype)
                 .HasMaxLength(255)
@@ -147,6 +140,7 @@ public partial class AiwardrobeContext : DbContext
             entity.Property(e => e.Orderdate).HasColumnName("orderdate");
             entity.Property(e => e.Orderstatus)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'Pending'::character varying")
                 .HasColumnName("orderstatus");
 
             entity.HasOne(d => d.Fkuser).WithMany(p => p.Orders)
@@ -175,13 +169,11 @@ public partial class AiwardrobeContext : DbContext
 
         modelBuilder.Entity<RegisteredUser>(entity =>
         {
-            entity.HasKey(e => e.Userid).HasName("User_pkey");
+            entity.HasKey(e => e.Userid).HasName("RegisteredUser_pkey");
 
             entity.ToTable("RegisteredUser");
 
-            entity.Property(e => e.Userid)
-                .HasDefaultValueSql("nextval('\"User_userid_seq\"'::regclass)")
-                .HasColumnName("userid");
+            entity.Property(e => e.Userid).HasColumnName("userid");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
@@ -213,7 +205,22 @@ public partial class AiwardrobeContext : DbContext
             entity.ToTable("Transaction");
 
             entity.Property(e => e.Transactionid).HasColumnName("transactionid");
+            entity.Property(e => e.Currency)
+                .HasMaxLength(20)
+                .HasColumnName("currency");
             entity.Property(e => e.Fkorderid).HasColumnName("fkorderid");
+            entity.Property(e => e.Payeremail)
+                .HasMaxLength(100)
+                .HasColumnName("payeremail");
+            entity.Property(e => e.Payername)
+                .HasMaxLength(100)
+                .HasColumnName("payername");
+            entity.Property(e => e.Paymentmethod)
+                .HasMaxLength(20)
+                .HasColumnName("paymentmethod");
+            entity.Property(e => e.Paypaltransactionid)
+                .HasMaxLength(100)
+                .HasColumnName("paypaltransactionid");
             entity.Property(e => e.Totalamount).HasColumnName("totalamount");
             entity.Property(e => e.Transactiondate).HasColumnName("transactiondate");
             entity.Property(e => e.Transactionstatus)
