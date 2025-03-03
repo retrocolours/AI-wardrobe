@@ -1,28 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace AI_Wardrobe.Models
+namespace AI_Wardrobe.Models;
+
+public partial class Transaction
 {
-    public class Transaction
-    {
-        public int Transactionid { get; set; } 
+    public int Transactionid { get; set; }
 
-        // public string? PayPalTransactionId { get; set; } 
+    public decimal? Totalamount { get; set; }
 
-        public decimal? Totalamount { get; set; } 
+    public DateOnly? Transactiondate { get; set; }
 
-        public DateTime? Transactiondate { get; set; }  
+    public string? Transactionstatus { get; set; }
 
-        public string? Transactionstatus { get; set; } 
+    public int? Fkorderid { get; set; }
 
-        // public string? PayerName { get; set; } 
+    public string? Paypaltransactionid { get; set; }
 
-        // public string? PayerEmail { get; set; } 
-        // public string? Currency { get; set; } 
+    public string? Payername { get; set; }
 
-        // public string? PaymentMethod { get; set; } 
+    public string? Payeremail { get; set; }
 
-        public int? Fkorderid { get; set; } 
+    public string? Currency { get; set; }
 
-        public virtual Order? Fkorder { get; set; } 
-    }
+    public string? Paymentmethod { get; set; }
+
+    public virtual Order? Fkorder { get; set; }
 }

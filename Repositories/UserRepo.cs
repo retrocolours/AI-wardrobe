@@ -17,12 +17,12 @@ namespace AI_Wardrobe.Repositories
 
         }
 
-        //public IEnumerable<User> GetAllUsers()
-        //{
-        //    var users = _context.Users;
-
-        //    return users;
-        //}
+      public int? GetUserId(String email)
+{
+    var registerdUser = _aiWardrobeContext.RegisteredUsers.Where((user) => user.Email == email).FirstOrDefault();
+    Console.Write($"registerdUser: {email}, id: {registerdUser?.Userid}");
+    return registerdUser?.Userid;
+}
 
     }
 }
