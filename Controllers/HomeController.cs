@@ -1,10 +1,9 @@
-
-
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AI_Wardrobe.Models;
 using AI_Wardrobe.Repositories;
 using AI_Wardrobe.ViewModels;
+using System.Security.Claims;
 
 namespace AI_Wardrobe.Controllers
 {
@@ -12,16 +11,20 @@ namespace AI_Wardrobe.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly TransactionRepo _transactionRepo;
-
         private readonly OrderRepo _orderRepo;
+        private readonly UserRepo _userRepo;
 
-
-      public HomeController(ILogger<HomeController> logger, TransactionRepo transactionRepo, OrderRepo orderRepo)
-{
-    _logger = logger;
-    _transactionRepo = transactionRepo;
-    _orderRepo = orderRepo;
-}
+        public HomeController(
+            ILogger<HomeController> logger, 
+            TransactionRepo transactionRepo, 
+            OrderRepo orderRepo, 
+            UserRepo userRepo)
+        {
+            _logger = logger;
+            _transactionRepo = transactionRepo;
+            _orderRepo = orderRepo;
+            _userRepo = userRepo;
+        }
 
         public IActionResult Index()
         {
@@ -44,8 +47,12 @@ namespace AI_Wardrobe.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-      
-   public IActionResult PayPalConfirmation(string TransactionId, string Amount, string PayerName, string CreateTime, string Email)
+        public IActionResult PayPalConfirmation(
+            string TransactionId, 
+            string Amount, 
+            string PayerName, 
+            string CreateTime, 
+            string Email)
         {
             if (string.IsNullOrEmpty(TransactionId))
             {
@@ -57,16 +64,29 @@ namespace AI_Wardrobe.Controllers
                 TransactionId = TransactionId,
                 PayerName = PayerName,
                 PayerEmail = Email,
-                Amount = decimal.TryParse(Amount, out var amt) ? amt : null,
-                CreateTime = DateTime.UtcNow,
+                Amount = decimal.TryParse(Amount, out var amt) ? amt : (decimal?)null, // Fixed nullability issue
+                CreateTime = DateTime.UtcNow, // Ensure CreateTime matches TransactionVM type
                 PaymentMethod = "PayPal",
             };
 
-            bool success = _transactionRepo.AddTransaction(transaction);
-
-            if (!success)
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email))
             {
-                return StatusCode(500, "Failed to save transaction.");
+                return BadRequest("User email not found.");
+            }
+
+            var userId = _userRepo.GetUserId(email);
+            if (userId.HasValue)
+            {
+                bool success = _transactionRepo.AddTransaction(transaction, userId.Value);
+                if (!success)
+                {
+                    return StatusCode(500, "Failed to save transaction.");
+                }
+            }
+            else
+            {
+                return StatusCode(500, "User ID not found.");
             }
 
             ViewBag.TransactionId = TransactionId;

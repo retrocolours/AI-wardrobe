@@ -137,6 +137,7 @@ public partial class AiwardrobeContext : DbContext
             entity.Property(e => e.Orderdate).HasColumnName("orderdate");
             entity.Property(e => e.Orderstatus)
                 .HasMaxLength(255)
+                .HasDefaultValueSql("'Pending'::character varying")
                 .HasColumnName("orderstatus");
 
             entity.HasOne(d => d.Fkuser).WithMany(p => p.Orders)
