@@ -7,7 +7,7 @@ public partial class OrderDetail
 {
     public int Orderdetailsid { get; set; }
 
-    public int? Fkitemid { get; set; }
+    public int Fkitemid { get; set; }
 
     public DateOnly? Quantity { get; set; }
 

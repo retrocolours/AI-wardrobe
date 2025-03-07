@@ -10,10 +10,14 @@ namespace AI_Wardrobe.Controllers
     public class AdminController : Controller
     {
         private readonly ProductRepo _productRepo;
+        private readonly OrderRepo _orderRepo;
+        private readonly UserRepo _userRepo;
 
-        public AdminController(ProductRepo productRepo)
+        public AdminController(ProductRepo productRepo, OrderRepo orderRepo, UserRepo userRepo)
         {
             _productRepo = productRepo;
+            _orderRepo = orderRepo;
+            _userRepo = userRepo;
         }
 
         public IActionResult Index()
@@ -117,48 +121,51 @@ namespace AI_Wardrobe.Controllers
 
         }
 
-        public IActionResult ViewUpdateOrder()
+        public IActionResult ViewUpdateOrder(int orderId)
         {
-            return View();
+
+            var orderVm = _orderRepo.GetOrderVM(orderId);
+            if (orderVm != null)
+            {
+                return View(orderVm);
+            }
+            else
+            {
+                return RedirectToAction("Index", new { message = $"Unable to find order id: {orderId}" });
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile image)
         {
-            // Ensure a file is uploaded
             if (image != null && image.Length > 0)
             {
                 try
                 {
-                    // Get file name and path
                     var fileName = ConvertToHtmlSafeString(Path.GetFileName(image.FileName));
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images/products", fileName);
 
-                    // Ensure the directory exists
                     var directoryPath = Path.GetDirectoryName(path);
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
                     }
 
-                    // Save the file asynchronously to the server
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await image.CopyToAsync(stream);
                     }
 
                     var src = Path.Combine("/images/products", fileName);
-                    // Return a success message as JSON
+
                     return Json(new { success = true, message = "Image uploaded successfully!", filePath = src });
                 }
                 catch (Exception ex)
                 {
-                    // Return error message as JSON
                     return Json(new { success = false, message = "Error uploading image: " + ex.Message });
                 }
             }
 
-            // Return an error message if no file was uploaded
             return Json(new { success = false, message = "No image selected!" });
         }
 
@@ -166,13 +173,11 @@ namespace AI_Wardrobe.Controllers
         {
             var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images/products");
 
-            // Get all files in the directory
             var files = Directory.GetFiles(directoryPath);
 
-            // Return just the filenames (or you can adjust as needed)
             var fileNames = files.Select(f => Path.GetFileName(f)).ToList();
 
-            return PartialView("_ImageList", fileNames);  // Return the partial view with the files
+            return PartialView("_ImageList", fileNames);
         }
 
         private void FillProductVMOptions(ProductVM vm)
