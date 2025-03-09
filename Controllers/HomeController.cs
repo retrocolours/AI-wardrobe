@@ -15,9 +15,9 @@ namespace AI_Wardrobe.Controllers
         private readonly UserRepo _userRepo;
 
         public HomeController(
-            ILogger<HomeController> logger, 
-            TransactionRepo transactionRepo, 
-            OrderRepo orderRepo, 
+            ILogger<HomeController> logger,
+            TransactionRepo transactionRepo,
+            OrderRepo orderRepo,
             UserRepo userRepo)
         {
             _logger = logger;
@@ -28,6 +28,14 @@ namespace AI_Wardrobe.Controllers
 
         public IActionResult Index()
         {
+            // Get featured products to display on the home page
+            //var featuredProducts = _context.Items
+            //    .OrderBy(i => Guid.NewGuid()) // Random ordering
+            //    .Take(4)
+            //    .ToList();
+
+            //return View(featuredProducts);
+
             return View();
         }
 
@@ -48,10 +56,10 @@ namespace AI_Wardrobe.Controllers
         }
 
         public IActionResult PayPalConfirmation(
-            string TransactionId, 
-            string Amount, 
-            string PayerName, 
-            string CreateTime, 
+            string TransactionId,
+            string Amount,
+            string PayerName,
+            string CreateTime,
             string Email)
         {
             if (string.IsNullOrEmpty(TransactionId))

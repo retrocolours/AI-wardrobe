@@ -1,22 +1,8 @@
-﻿@{
+﻿@model List<AI_Wardrobe.Models.Item>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai Wardrobe - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<link href="~/css/home.css" rel="stylesheet" type="text/css" />
-</head>
-@* <a asp-controller="Shop" asp-action="Index" class="cta-btn">
-    Shop All Collections
-</a> *@
-<body>
- 
-    
 
     <!-- Main Banner Section -->
     <section class="main-banner">
@@ -30,44 +16,100 @@
     <!-- Categories Section -->
     <section class="categories">
         <div class="category">
-            <img src="women-coats.jpg" alt="Women's Coats">
+            <img src="~/images/women-coats.jpg" alt="Women's Coats">
             <button class="shop-btn">Shop Now</button>
         </div>
         <div class="category">
-            <img src="mens-coats.jpg" alt="Men's Coats">
+            <img src="~/images/mens-coats.jpg" alt="Men's Coats">
             <button class="shop-btn">Shop Now</button>
         </div>
         <div class="category">
-            <img src="unisex.jpg" alt="Unisex">
+            <img src="~/images/unisex.jpg" alt="Unisex">
             <button class="shop-btn">Shop Now</button>
         </div>
         <div class="category">
-            <img src="collections.jpg" alt="Collections">
+            <img src="~/images/collections.jpg" alt="Collections">
             <button class="shop-btn">Shop Now</button>
         </div>
     </section>
 
-    <!-- Trending Now Section -->
+    <!-- Featured Products Section -->
     <section class="trending-now">
-        <h3>Trending Now</h3>
-        <div class="product">
-            <img src="product1.jpg" alt="Space Saviour Female">
-            <p>Space Saviour Female - $1099</p>
-        </div>
-        <div class="product">
-            <img src="product2.jpg" alt="Nomad Fashion Unisex Orange">
-            <p>Nomad Fashion Unisex Orange - $1299</p>
-        </div>
-        <div class="product">
-            <img src="product3.jpg" alt="Monk Coat Orange Prime">
-            <p>Monk Coat Orange Prime - $499</p>
-        </div>
-        <div class="product">
-            <img src="product4.jpg" alt="Neon People Coat">
-            <p>Neon People Coat - $599</p>
+        <h3>Featured Products</h3>
+        <div class="product-container">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="product">
+                        @if (!string.IsNullOrEmpty(item.Imageurl))
+                        {
+                            <img src="@item.Imageurl" alt="@item.Itemtype">
+                        }
+                        else
+                        {
+                            <img src="~/images/placeholder.jpg" alt="Product Image">
+                        }
+                        <h4>@item.Itemtype</h4>
+                        <p>@item.Itemdescription</p>
+                        <p class="price">$@item.Itemprice</p>
+                        <a href="/Shop/Details/@item.Itemid" class="view-btn">View Details</a>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No products available at the moment.</p>
+            }
         </div>
     </section>
 
+<link rel="stylesheet" href="~/css/image.css" />
+<style>
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
     
-</body>
-</html>
+    .product {
+        flex: 0 0 calc(25% - 20px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 15px;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+    }
+    
+    .product:hover {
+        transform: translateY(-5px);
+    }
+    
+    .product img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 3px;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: #d94c1a;
+    }
+    
+    .view-btn {
+        display: inline-block;
+        background-color: #333;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 3px;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+    
+    .view-btn:hover {
+        background-color: #555;
+    }
+
+    }
+</style>

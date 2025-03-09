@@ -1,0 +1,59 @@
+﻿.main-banner {
+    background-image: url('/images/products/-16.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* height: 1000px; */
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    width: 100vw;
+}
+
+
+
+.banner-text h2 {
+    color: white;
+  text-shadow: 
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000,
+      2px  2px 5px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      margin-top: 220px;
+  font-size: 3rem;
+  margin-bottom: 8px;
+  }
+
+  .banner-text p {
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+        2px  2px 5px rgba(0, 0, 0, 0.5);
+        text-align: center;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+.cta-btn { padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+    box-shadow: 1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+    2px  2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.cta-btn:hover {
+    background-color: black;
+  color: white;
+}
