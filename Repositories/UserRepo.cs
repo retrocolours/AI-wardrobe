@@ -90,6 +90,34 @@ namespace AI_Wardrobe.Repositories
             return null;
         }
 
+        public bool UpdateUser(RegisteredUser user)
+        {
+            try
+            {
+                _aiWardrobeContext.RegisteredUsers.Update(user);
+                _aiWardrobeContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+
+            {
+                return false;
+            }
+        }
+
+        public IEnumerable<RegisteredUser> GetUserByID(int id)
+        {
+            return _aiWardrobeContext.RegisteredUsers.Where(usr => usr.Userid == id);
+        }
+
+        public int? GetUserId(String email)
+        {
+            var registerdUser = _aiWardrobeContext.RegisteredUsers.Where((user) => user.Email == email).FirstOrDefault();
+            Console.Write($"registerdUser: {email}, id: {registerdUser?.Userid}");
+            return registerdUser?.Userid;
+        }
+
         public string? GetFullName(int userId)
         {
             return _aiWardrobeContext.RegisteredUsers
