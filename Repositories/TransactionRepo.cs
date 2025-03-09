@@ -23,7 +23,7 @@ namespace AI_Wardrobe.Repositories
                 .Select(t => new TransactionVM
                 {
                     Amount = t.Totalamount,
-                    CreateTime = t.Transactiondate.HasValue ? t.Transactiondate.Value.ToDateTime(TimeOnly.MinValue) : (DateTime?)null,
+                    CreateTime = t.Transactiondate.HasValue ? t.Transactiondate.Value : null,
                     Transactionstatus = t.Transactionstatus,
                 }) ?? Enumerable.Empty<TransactionVM>();
         }
@@ -57,7 +57,7 @@ namespace AI_Wardrobe.Repositories
                 var newTransaction = new Transaction
                 {
                     Totalamount = transaction.Amount,
-                    Transactiondate = transaction.CreateTime.HasValue ? DateOnly.FromDateTime(transaction.CreateTime.Value) : DateOnly.FromDateTime(DateTime.UtcNow),
+                    Transactiondate = transaction.CreateTime.HasValue ? transaction.CreateTime.Value : DateTime.UtcNow,
                     Transactionstatus = transaction.Transactionstatus ?? "Completed",
                     Fkorderid = order.Orderid,
                 };
@@ -70,6 +70,23 @@ namespace AI_Wardrobe.Repositories
             {
                 return false;
             }
+        }
+
+        public TransactionVM? GetTransactionVm(int orderId)
+        {
+            return _context.Transactions
+                .Where(t => t.Fkorderid == orderId)
+                .Select(t => new TransactionVM
+                {
+                    TransactionId = t.Paypaltransactionid,
+                    CreateTime = t.Transactiondate,
+                    PayerName = t.Payername,
+                    PayerEmail = t.Payeremail,
+                    Amount = t.Totalamount,
+                    Currency = t.Currency,
+                    PaymentMethod = t.Paymentmethod,
+                    Transactionstatus = t.Transactionstatus
+                }).FirstOrDefault();
         }
 
     }

@@ -12,12 +12,15 @@ namespace AI_Wardrobe.Controllers
         private readonly ProductRepo _productRepo;
         private readonly OrderRepo _orderRepo;
         private readonly UserRepo _userRepo;
+        private readonly TransactionRepo _transactionRepo;
 
-        public AdminController(ProductRepo productRepo, OrderRepo orderRepo, UserRepo userRepo)
+        public AdminController(ProductRepo productRepo, OrderRepo orderRepo, 
+            UserRepo userRepo, TransactionRepo transactionRepo)
         {
             _productRepo = productRepo;
             _orderRepo = orderRepo;
             _userRepo = userRepo;
+            _transactionRepo = transactionRepo;
         }
 
         public IActionResult Index()
@@ -123,16 +126,27 @@ namespace AI_Wardrobe.Controllers
 
         public IActionResult ViewUpdateOrder(int orderId)
         {
-
             var orderVm = _orderRepo.GetOrderVM(orderId);
             if (orderVm != null)
             {
+                orderVm.TransactionVM = _transactionRepo.GetTransactionVm(orderId);
+                orderVm.StatusOptions = _orderRepo.GetStatusOptions();
+
                 return View(orderVm);
             }
             else
             {
                 return RedirectToAction("Index", new { message = $"Unable to find order id: {orderId}" });
             }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(OrderVM orderVM)
+        {
+            if(_orderRepo.UpdateOrderStatus(orderVM.Id, orderVM.Status)) { 
+
+            }
+            return RedirectToAction("ViewUpdateOrder", new { orderId = orderVM.Id });
         }
 
         [HttpPost]

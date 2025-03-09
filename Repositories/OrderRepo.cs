@@ -1,6 +1,7 @@
 ﻿using AI_Wardrobe.Models;
 using AI_Wardrobe.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using System.Drawing;
 
@@ -123,22 +124,63 @@ namespace AI_Wardrobe.Repositories
                     OrderedBy = _userRepo.GetFullName(order.Orderid),
                     DeliverAddress = _userRepo.GetFullAddress(order.Orderid),
                 };
-            } else
+            }
+            else
             {
                 return null;
             }
         }
 
-        public IEnumerable<OrderDetailVM> GetOrderDetailVMs(int orderId)
+        public OrderDetailVM? GetOrderDetailVMs(int orderId)
         {
-            return _aiWardrobeContext.OrderDetails.Where(od => od.Fkorderid == orderId).Select(od => new OrderDetailVM
-            {
-                Id = od.Orderdetailsid,
-                Quantity = od.Quantity,
-                Price = od.Price,
-                productVM = _productRepo.GetProductVm(od.Fkitemid)
-            });
+            var orderDetail = _aiWardrobeContext.OrderDetails.Where(od => od.Fkorderid == orderId).FirstOrDefault();
 
+            if (orderDetail != null)
+            {
+                return new OrderDetailVM
+                {
+                    Id = orderDetail.Orderdetailsid,
+                    Quantity = orderDetail.Quantity,
+                    Price = orderDetail.Price,
+                    productVM = _productRepo.GetProductVm(orderDetail.Fkitemid!)
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool UpdateOrderStatus(int orderId, string orderStatus)
+        {
+            try
+            {
+                var order = GetOrder(orderId);
+                if (order != null)
+                {
+                    order.Orderstatus = orderStatus;
+                    _aiWardrobeContext.Orders.Update(order);
+                    _aiWardrobeContext.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<SelectListItem> GetStatusOptions()
+        {
+            List<SelectListItem> statusOptions = new List<SelectListItem>();
+
+            statusOptions.AddRange(_aiWardrobeContext.OrderStatuses.Select(os => new SelectListItem
+            {
+                Text = os.Status,
+                Value = os.Status
+            }).ToList());
+
+            return statusOptions;
         }
     }
 }

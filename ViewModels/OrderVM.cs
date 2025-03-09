@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace AI_Wardrobe.ViewModels
 {
@@ -13,14 +14,17 @@ namespace AI_Wardrobe.ViewModels
         [Display(Name = "Order Status")]
         public string? Status { get; set; }
 
-        [Display(Name = "Ordered By")]
+        [Display(Name = "Deliver To")]
         public string? OrderedBy { get; set; }
 
-        [Display(Name = "Delievery Address")]
+        [Display(Name = "Delivery Address")]
         public string? DeliverAddress { get; set; }
        
         public TransactionVM? TransactionVM { get; set; }
 
         public IEnumerable<OrderDetailVM>? OrderDetailVMs;
+
+        //Drop down options
+        public List<SelectListItem>? StatusOptions;
     }
 }

@@ -121,7 +121,7 @@ namespace AI_Wardrobe.Repositories
             return genderOptions;
         }
 
-        public ProductVM? GetProductVm(int itemId)
+        public ProductVM? GetProductVm(int? itemId)
         {
             return _aiWardrobeContext.Items.Where(item => item.Itemid == itemId).Select(item => new ProductVM
             {

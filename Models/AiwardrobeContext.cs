@@ -27,6 +27,8 @@ public partial class AiwardrobeContext : DbContext
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
+    public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
+
     public virtual DbSet<RegisteredUser> RegisteredUsers { get; set; }
 
     public virtual DbSet<Size> Sizes { get; set; }
@@ -35,7 +37,7 @@ public partial class AiwardrobeContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=127.0.0.1;Port=5432;Database=aiwardrobe;Username=postgres;Password=P@ssw0rd!");
+        => optionsBuilder.UseNpgsql("Host=127.0.0.1; Port=5432;Database=aiwardrobe; Username=postgres;Password=P@ssw0rd!");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,7 +48,12 @@ public partial class AiwardrobeContext : DbContext
             entity.ToTable("Address");
 
             entity.Property(e => e.Addressid).HasColumnName("addressid");
-            entity.Property(e => e.Apartmentnum).HasColumnName("apartmentnum");
+            entity.Property(e => e.Address1)
+                .HasMaxLength(255)
+                .HasColumnName("address1");
+            entity.Property(e => e.Address2)
+                .HasMaxLength(255)
+                .HasColumnName("address2");
             entity.Property(e => e.City)
                 .HasMaxLength(255)
                 .HasColumnName("city");
@@ -60,10 +67,6 @@ public partial class AiwardrobeContext : DbContext
             entity.Property(e => e.Province)
                 .HasMaxLength(255)
                 .HasColumnName("province");
-            entity.Property(e => e.Streetname)
-                .HasMaxLength(255)
-                .HasColumnName("streetname");
-            entity.Property(e => e.Streetnum).HasColumnName("streetnum");
 
             entity.HasOne(d => d.Fkuser).WithMany(p => p.Addresses)
                 .HasForeignKey(d => d.Fkuserid)
@@ -84,8 +87,11 @@ public partial class AiwardrobeContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("imageurl");
             entity.Property(e => e.Itemdescription)
-                .HasMaxLength(255)
+                .HasMaxLength(1000)
                 .HasColumnName("itemdescription");
+            entity.Property(e => e.Itemname)
+                .HasMaxLength(100)
+                .HasColumnName("itemname");
             entity.Property(e => e.Itemprice).HasColumnName("itemprice");
             entity.Property(e => e.Itemtype)
                 .HasMaxLength(255)
@@ -143,6 +149,10 @@ public partial class AiwardrobeContext : DbContext
             entity.HasOne(d => d.Fkuser).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.Fkuserid)
                 .HasConstraintName("order_user_id_fk");
+
+            entity.HasOne(d => d.OrderstatusNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.Orderstatus)
+                .HasConstraintName("orders_status_fk");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
@@ -164,15 +174,24 @@ public partial class AiwardrobeContext : DbContext
                 .HasConstraintName("order_details_order_id_fk");
         });
 
+        modelBuilder.Entity<OrderStatus>(entity =>
+        {
+            entity.HasKey(e => e.Status).HasName("OrderStatus_pkey");
+
+            entity.ToTable("OrderStatus");
+
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
+        });
+
         modelBuilder.Entity<RegisteredUser>(entity =>
         {
-            entity.HasKey(e => e.Userid).HasName("User_pkey");
+            entity.HasKey(e => e.Userid).HasName("RegisteredUser_pkey");
 
             entity.ToTable("RegisteredUser");
 
-            entity.Property(e => e.Userid)
-                .HasDefaultValueSql("nextval('\"User_userid_seq\"'::regclass)")
-                .HasColumnName("userid");
+            entity.Property(e => e.Userid).HasColumnName("userid");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
