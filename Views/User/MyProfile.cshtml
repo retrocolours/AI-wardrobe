@@ -1,58 +1,86 @@
-﻿@{
+﻿@model AI_Wardrobe.ViewModels.UserVm
+
+@{
     ViewData["Title"] = "My Profile";
 }
 
 <link rel="stylesheet" href="~/css/home.css" />
 
-<h1>My Profile</h1>
-<p>Welcome to your profile, @User.Identity?.Name!</p>
-
 <div class="profile-container">
     <h2>Personal Information</h2>
-    <form>
-        <div class="input-group">
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" value="John" aria-label="First Name" />
+    <form asp-action="UpdateProfile">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="name-container">
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
         </div>
-        <div class="input-group">
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" value="Doe" aria-label="Last Name" />
+        <div class="form-group">
+            <label asp-for="Address1" class="control-label"></label>
+            <input asp-for="Address1" class="form-control" />
+            <span asp-validation-for="Address1" class="text-danger"></span>
         </div>
-        <div class="input-group">
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address" value="555 Seymour St" aria-label="Address" />
+        <div class="form-group">
+            <label asp-for="Address2" class="control-label"></label>
+            <input asp-for="Address2" class="form-control" />
+            <span asp-validation-for="Address2" class="text-danger"></span>
+
         </div>
-        <div class="input-group">
-            <label for="apartment">Apartment, Suite (Optional)</label>
-            <input type="text" id="apartment" name="apartment" value="" aria-label="Apartment or Suite" />
+        <div class="city-container">
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Province" class="control-label"></label>
+                <input asp-for="Province" class="form-control" />
+                <span asp-validation-for="Province" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+
+            </div>
         </div>
-        <div class="input-group">
-            <label for="city">City</label>
-            <input type="text" id="city" name="city" value="Vancouver" aria-label="City" />
+        <div class="form-group">
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
-        <div class="input-group">
-            <label for="province">Province</label>
-            <input type="text" id="province" name="province" value="BC" aria-label="Province" />
+        <div class="form-group">
+            <input type="submit" value="Edit | Save" class="btn btn-primary" />
         </div>
-        <div class="input-group">
-            <label for="postal-code">Postal Code</label>
-            <input type="text" id="postal-code" name="postal-code" value="V6B 3H6" aria-label="Postal Code" />
-        </div>
-        <div class="input-group">
-            <label for="phone">Phone (Optional)</label>
-            <input type="text" id="phone" name="phone" value="" aria-label="Phone" />
-        </div>
-        <button type="button" class="btn">Edit | Save</button>
     </form>
 
     <h2>Account Information</h2>
     <form>
-        <div class="input-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" value="email@janesfakedomain.net" aria-label="Email Address" />
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input disabled asp-for="Email" class="form-control" />
         </div>
-        <button type="button" class="btn">Change Password</button>
+        <a href="/Identity/Account/Manage/ChangePassword"><div class="btn">Change Password</div></a>
+@*         Password</a>
+ *@@*         <a asp-action="ManageProduct" asp-route-id="@item.Id">Manage</a>
+ *@    
     </form>
 
     <a href="#" class="view-orders">View Orders</a>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

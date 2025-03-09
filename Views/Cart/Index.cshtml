@@ -69,16 +69,16 @@
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                alert('Transaction completed by ' + details.payer.name.given_name);
+                @* alert('Transaction completed by ' + details.payer.name.given_name); *@
                 window.location.href = `/Home/PayPalConfirmation?TransactionId=${encodeURIComponent(details.id)}&Amount=${encodeURIComponent(details.purchase_units[0].amount.value)}&PayerName=${encodeURIComponent(details.payer.name.given_name)}&CreateTime=${encodeURIComponent(details.create_time)}&Email=${encodeURIComponent(details.payer.email_address)}`;
             });
         },
         onCancel: function() {
-            alert('Transaction was cancelled.');
+            @* alert('Transaction was cancelled.'); *@
         },
         onError: function() {
 
-            alert('An error occurred during the transaction.');
+            @* alert('An error occurred during the transaction.'); *@
         },
         style: {
             layout: 'vertical',

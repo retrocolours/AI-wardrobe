@@ -120,5 +120,19 @@ namespace AI_Wardrobe.Repositories
 
             return genderOptions;
         }
+
+        public ProductVM? GetProductVm(int? itemId)
+        {
+            return _aiWardrobeContext.Items.Where(item => item.Itemid == itemId).Select(item => new ProductVM
+            {
+                Id = item.Itemid,
+                Description = item.Itemdescription,
+                Price = item.Itemprice,
+                ImageUrl = item.Imageurl,
+                SizeId = item.Fksizeid,
+                GenderId = item.Fkitemgenderid,
+                TypeId = item.Fktypeid,
+            }).FirstOrDefault(); ;
+        }
     }
 }
