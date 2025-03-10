@@ -48,7 +48,7 @@ namespace AI_Wardrobe.Repositories
                 {
                     throw new ArgumentException("Email cannot be empty.", nameof(email));
                 }
-                return _aiWardrobeContext.RegisteredUsers.FirstOrDefault(u => u.Email == email);
+                return _aiWardrobeContext.RegisteredUsers.Where(u => u.Email == email).FirstOrDefault();
             }
             catch (Exception ex)
             {

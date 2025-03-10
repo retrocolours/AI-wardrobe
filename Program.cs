@@ -21,8 +21,8 @@ builder.Services.AddDbContext<AiwardrobeContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Identity Configuration (Supports Roles)
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-    options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
