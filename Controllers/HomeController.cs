@@ -2,18 +2,29 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AI_Wardrobe.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace AI_Wardrobe.Controllers;
 
 public class HomeController : Controller
 {
+
+
     private readonly ILogger<HomeController> _logger;
     private readonly AiwardrobeContext _context;
+    private readonly SignInManager<IdentityUser> _signInManager;
 
-    public HomeController(ILogger<HomeController> logger, AiwardrobeContext context)
+    public HomeController(ILogger<HomeController> logger, AiwardrobeContext context, SignInManager<IdentityUser> signInManager)
     {
         _logger = logger;
         _context = context;
+        _signInManager = signInManager;
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index");
     }
 
     public IActionResult Index()
