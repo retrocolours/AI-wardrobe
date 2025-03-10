@@ -81,7 +81,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* .cta-btn {
+.cta-btn {
   padding: 15px 30px;
   font-size: 1.2rem;
   border: none;
@@ -97,7 +97,7 @@ body {
 .cta-btn:hover {
   background-color: black;
   color: white;
-} */
+}
 
 .shop-btn {
   padding: 15px 30px;
@@ -106,6 +106,8 @@ body {
   cursor: pointer;
   border-radius: 30px;
   transition: background-color 0.1s;
+  background-color: black;
+  color: white;
   box-shadow: 1px -1px 0 #000,
   -1px  1px 0 #000,
    1px  1px 0 #000,
@@ -113,8 +115,8 @@ body {
 }
 
 .shop-btn:hover {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 /* Categories Section */
@@ -223,24 +225,6 @@ body {
       color: white;
     }
 
-/* .view-orders {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-}
-
-    .view-orders:hover {
-        background-color: #ff6f61;
-    } */
 
 
 
