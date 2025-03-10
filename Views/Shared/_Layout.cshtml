@@ -9,10 +9,41 @@
     <link rel="stylesheet" href="~/css/home.css" />
     <link rel="stylesheet" href="~/AI_Wardrobe.styles.css" asp-append-version="true" />
     <link href="~/css/home.css" rel="stylesheet" type="text/css" />
+    <style>
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: white;
+            height: 56px;
+        }
+
+        .navbar {
+            height: 100%;
+            padding: 0 1rem;
+        }
+
+        body {
+            padding-top: 56px; /* Same as header height */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .footer {
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav"
@@ -37,11 +68,10 @@
             </div>
         </nav>
     </header>
-    <div>
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="footer-links">

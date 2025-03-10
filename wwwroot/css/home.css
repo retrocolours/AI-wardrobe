@@ -63,7 +63,7 @@ body {
        1px  1px 0 #000,
       2px  2px 5px rgba(0, 0, 0, 0.5);
       text-align: center;
-      margin-top: 100px;
+      margin-top: 100px;3rYt|
   font-size: 3rem;
   margin-bottom: 8px;
 }
@@ -99,6 +99,26 @@ body {
   color: white;
 }
 
+.shop-btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.1s;
+  background-color: black;
+  color: white;
+  box-shadow: 1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000,
+  2px  2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.shop-btn:hover {
+  background-color: white;
+  color: black;
+}
+
 /* Categories Section */
 .categories {
   display: flex;
@@ -116,20 +136,7 @@ body {
   border-radius: 8px;
 }
 
-.shop-btn {
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  margin-top: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.shop-btn:hover {
-  background-color: #ff6f61;
-}
 
 /* Trending Now Section */
 .trending-now {
@@ -201,42 +208,23 @@ body {
         }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.1s ease;
-    margin-top: 10px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.1s;
+  box-shadow: 1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000,
+  2px  2px 5px rgba(0, 0, 0, 0.5);
 }
 
     .btn:hover {
-        background-color: #ff6f61;
+      background-color: black;
+      color: white;
     }
 
-.view-orders {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-}
-
-    .view-orders:hover {
-        background-color: #ff6f61;
-    }
 
 
 
