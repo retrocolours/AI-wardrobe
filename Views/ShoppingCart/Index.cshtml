@@ -10,7 +10,7 @@
 <div class="item-container">
     @if (Model == null || !Model.Any())
     {
-        <p>Your cart is empty.</p>
+        <p id="p-empty"> Your cart is empty.</p>
     }
     else
     {
@@ -128,6 +128,12 @@
     </script>
 
     <style>
+        #p-empty{
+            margin:auto;
+            text-align:center;
+            font-weight: bold;
+        }
+
         .product-image {
             width: 20%;
             height: auto;
