@@ -14,10 +14,15 @@
     @foreach (var item in Model)
     {
         <div class="product">
-            <img class="product-image" src="@item.ImageUrl" alt="@item.Description"/>
+            <div class="product-image-container">
+                <img class="product-image" src="@item.ImageUrl" alt="@item.Description"/>
+            </div>
             <div class="product-details">
                 <h3 class="product-name">@item.Name</h3>
-                <p class="product-title">@item.Description</p>
+                <div class="product-description-container">
+                    <p class="product-title">@item.Description</p>
+                    <button class="read-more-btn">Read More</button>
+                </div>
                 <p class="product-price">@item.Price?.ToString("0.00")</p>
                 <button class="btn btn-primary add-to-cart" data-product-id="@item.Id" data-product-image="@item.ImageUrl" 
                         data-product-name="@item.Name"
@@ -55,14 +60,124 @@
                     }
                 });
             });
+
+            $(".read-more-btn").click(function() {
+                const description = $(this).siblings('.product-title');
+                const isExpanded = description.hasClass('expanded');
+                
+                if (isExpanded) {
+                    description.removeClass('expanded');
+                    $(this).text('Read More');
+                } else {
+                    description.addClass('expanded');
+                    $(this).text('Read Less');
+                }
+            });
         });
     </script>
 
     <style>
-        #cart-message{
-            width:100vw;
+        #cart-message {
+            width: 100vw;
             position: fixed;
             bottom: 16px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .product {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            height: 2.4em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-description-container {
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-title.expanded {
+            -webkit-line-clamp: unset;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: #007bff;
+            padding: 0;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .read-more-btn:hover {
+            text-decoration: underline;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart {
+            margin-top: auto;
         }
     </style>
 }
