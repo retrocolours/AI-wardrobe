@@ -5,39 +5,67 @@
 <div class="text-center">
     <h1 class="display-4">AI Wardrobe Admin</h1>
 
-    <form asp-action="ManageProduct" method="get">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <h3>Manage Inventory</h3>
-        <div class="form-group">
-            <label for="id" class="control-label">Product ID</label>
-            <input required name="id" id="id" class="form-control" />
-            <div>
-                <input type="submit" value="Manage by Product Id" class="btn btn-primary" />
-                <div class="button-container">
-                    <a asp-action="ProductList"><button type="button" class="btn btn-primary">View All Product</button></a>
-                    <a asp-action="CreateProduct"><button type="button" class="btn btn-primary">Add Product</button></a>
+    <div class="form-container">
+        <form asp-action="ManageProduct" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3>Manage Inventory</h3>
+            <div class="form-group">
+                <label for="id" class="control-label">Product ID</label>
+                <input required name="id" id="id" class="form-control" />
+                <div class="row-container">
+                    <input type="submit" value="Manage by Product Id" class="btn btn-primary" />
+                    <div class="button-container">
+                        <a asp-action="ProductList"><button type="button" class="btn btn-primary">View All Product</button></a>
+                        <a asp-action="CreateProduct"><button type="button" class="btn btn-primary">Add Product</button></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-    <form asp-action="ViewUpdateOrder" method="get">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <h3>Manage Orders</h3>
-        <div class="form-group">
-            <label for="orderId" class="control-label">Order Id</label>
-            <input name="orderId" id="orderId" class="form-control" />
-            <input required type="submit" value="orderId" class="btn btn-primary" />
-        </div>
-    </form>
+        <form asp-action="ViewUpdateOrder" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3>Manage Orders</h3>
+            <div class="form-group">
+                <label for="orderId" class="control-label">Order Id</label>
+                <input name="orderId" id="orderId" class="form-control" />
+                <input required type="submit" value="View / Update Order" class="btn btn-primary" />
+            </div>
+        </form>
 
-    <form asp-action="AddAdmin" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <h3>Admin Accounts</h3>
-        <div class="form-group">
-            <label for="email" class="control-label">Email</label>
-            <input required name="email" id="email" class="form-control" />
-            <a asp-action="ViewAdmins"><button type="button" class="btn btn-primary">View Admins</button></a>
-        </div>
-    </form>
+        <form asp-action="AddAdmin" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3>Admin Accounts</h3>
+            <div class="form-group">
+                <label for="email" class="control-label">Email</label>
+                <input required name="email" id="email" class="form-control" />
+                <div class="row-container">
+                    <a asp-action="AddAdmin"><button type="button" class="btn btn-primary">Add Admin</button></a>
+                    <a asp-action="ViewAdmins"><button type="button" class="btn btn-primary">View Admins</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
+
+<style>
+    .form-container {
+        width: 95%;
+        max-width: 1400px;
+        margin: auto;
+    }
+
+    .row-container {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between
+    }
+
+    .form-group {
+        margin: 16px;
+    }
+
+    form {
+        margin-top: 42px;
+        text-align: start;
+    }
+</style>

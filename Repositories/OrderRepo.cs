@@ -137,16 +137,16 @@ namespace AI_Wardrobe.Repositories
 
             if (order != null)
             {
-                var orderedBy = _userRepo.GetFullName(order.Orderid);
-                var deliverAddress = _userRepo.GetFullAddress(order.Orderid);
+                var orderedBy = _userRepo.GetFullName(order.Fkuserid);
+                var deliverAddress = _userRepo.GetFullAddress(order.Fkuserid);
 
                 return new OrderVM
                 {
                     Id = orderId,
                     Date = order.Orderdate,
                     Status = order.Orderstatus,
-                    OrderedBy = _userRepo.GetFullName(order.Orderid),
-                    DeliverAddress = _userRepo.GetFullAddress(order.Orderid),
+                    OrderedBy = orderedBy,
+                    DeliverAddress = deliverAddress,
                 };
             }
             else

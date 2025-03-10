@@ -5,60 +5,81 @@
 }
 
 <h1>ProductList</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GenderId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SizeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="item-img" src=@item.ImageUrl alt="@item.Name" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="ManageProduct" asp-route-id="@item.Id">Manage</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GenderId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                    <a asp-action="ManageProduct" asp-route-id="@item.Id">Manage</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-<div>
-    <a asp-action="Index">Back to Admin Page</a>
+    <div>
+        <a class="btn btn-secondary asp-action="Index">Back to Admin Page</a>
+    </div>
 </div>
+
+
+<style>
+    .container{
+        width: 95%;
+        max-width:1400px;
+        margin: auto;
+    }
+
+    .item-img {
+        height:150px;
+        width: auto;
+    }
+</style>

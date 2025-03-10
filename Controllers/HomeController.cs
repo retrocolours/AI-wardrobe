@@ -5,6 +5,7 @@ using AI_Wardrobe.Repositories;
 using AI_Wardrobe.ViewModels;
 using System.Security.Claims;
 using System.Diagnostics.Eventing.Reader;
+using Microsoft.AspNetCore.Identity;
 
 namespace AI_Wardrobe.Controllers
 {
@@ -16,6 +17,7 @@ namespace AI_Wardrobe.Controllers
         private readonly UserRepo _userRepo;
         private readonly ProductRepo _productRepo;
         private readonly CookieRepository _cookieRepo;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
         public HomeController(
             ILogger<HomeController> logger,
@@ -23,7 +25,8 @@ namespace AI_Wardrobe.Controllers
             OrderRepo orderRepo,
             UserRepo userRepo,
             ProductRepo productRepo,
-            CookieRepository cookieRepo)
+            CookieRepository cookieRepo,
+            SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
             _transactionRepo = transactionRepo;
@@ -31,12 +34,19 @@ namespace AI_Wardrobe.Controllers
             _userRepo = userRepo;
             _productRepo = productRepo;
             _cookieRepo = cookieRepo;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
         {
             var featuredProducts = _productRepo.GetFeaturedProduct();
             return View(featuredProducts);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

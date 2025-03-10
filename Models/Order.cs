@@ -11,7 +11,7 @@ public partial class Order
 
     public string? Orderstatus { get; set; }
 
-    public int? Fkuserid { get; set; }
+    public int Fkuserid { get; set; }
 
     public virtual RegisteredUser? Fkuser { get; set; }
 

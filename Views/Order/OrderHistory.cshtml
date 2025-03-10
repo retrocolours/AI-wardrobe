@@ -13,7 +13,7 @@
         {
             <div class="order-container">
                 <div class="image-container">
-                    @for (int i = 0; i <= 4 && i < item.Images.Count; i++)
+                    @for (int i = 0; i < 4 && i < item.Images.Count; i++)
                     {
                         <img class="order-image" src=@item.Images[i] alt="Product Photo" />
                     }

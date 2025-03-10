@@ -6,62 +6,96 @@
 
 <h1>View and Update Order</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="UpdateOrderStatus">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="Id" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="Date" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Status"></label>
-                <select asp-for="Status" asp-items="Model.StatusOptions"
-                        class="form-control" default="Status"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Update Status" class="btn btn-primary" />
-            </div>
-        </form>
-        <form>
-            <div class="form-group">
-                <label asp-for="TransactionVM.TransactionId" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="TransactionVM.TransactionId" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="TransactionVM.Amount" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="TransactionVM.Amount" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="TransactionVM.CreateTime" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="TransactionVM.CreateTime" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="TransactionVM.Transactionstatus" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="TransactionVM.Transactionstatus" class="form-control" />
-            </div>
-        </form>
-        <form>
-            <div class="form-group">
-                <label asp-for="OrderedBy" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="OrderedBy" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="DeliverAddress" class="control-label"></label>
-                <input disabled class="input-disable" asp-for="DeliverAddress" class="form-control" />
-            </div>
-        </form>
+<div class="row container">
+    <form asp-action="UpdateOrderStatus">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="Id" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Date" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="Date" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Status"></label>
+            <select asp-for="Status" asp-items="Model.StatusOptions"
+                    class="form-control" default="Status"></select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Update Status" class="btn btn-primary" />
+        </div>
+    </form>
+    <form>
+        <div class="form-group">
+            <label asp-for="TransactionVM.TransactionId" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="TransactionVM.TransactionId" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TransactionVM.Amount" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="TransactionVM.Amount" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TransactionVM.CreateTime" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="TransactionVM.CreateTime" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TransactionVM.Transactionstatus" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="TransactionVM.Transactionstatus" class="form-control" />
+        </div>
+    </form>
+    <form>
+        <div class="form-group">
+            <label asp-for="OrderedBy" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="OrderedBy" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="DeliverAddress" class="control-label"></label>
+            <input disabled class="input-disable" asp-for="DeliverAddress" class="form-control" />
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to Admin</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to Admin</a>
-</div>
 
+
+<style>
+    .container {
+        width: 95%;
+        max-width: 1400px;
+        margin: auto;
+    }
+
+    .form-group {
+
+        display:flex;
+        flex-direction:column;
+        margin-top: 16px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input{
+        margin-top:8px;
+    }
+
+    .input-disable {
+        background: none;
+        border-top: none;
+        color: black;
+        margin-left: 8px;
+        border-bottom: 1px solid black;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: #686565;
+        border-left: none;
+        border-right: none;
+    }
+</style>
