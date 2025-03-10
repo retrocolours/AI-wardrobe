@@ -9,6 +9,19 @@
     <link rel="stylesheet" href="~/css/home.css" />
     <link rel="stylesheet" href="~/AI_Wardrobe.styles.css" asp-append-version="true" />
     <link href="~/css/home.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        .footer {
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -37,11 +50,10 @@
             </div>
         </nav>
     </header>
-    <div>
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="footer-links">
