@@ -37,7 +37,7 @@ public class ShoppingCartController : Controller
         if (User.Identity.IsAuthenticated)
         {
             string userName = User.Identity.Name;
-            _cookieRepo.AddItem(userName, item.ProductId, item.ProductName, item.Price);
+            _cookieRepo.AddItem(userName ,item.ProductId, item.ProductImage, item.ProductName, item.Price);
             return Ok(new { message = $"Item '{item.ProductName}' added to cart.", cart = _cookieRepo.GetCartItems(userName) });
         }
 

@@ -4,6 +4,7 @@ using AI_Wardrobe.Models;
 using AI_Wardrobe.Repositories;
 using AI_Wardrobe.ViewModels;
 using System.Security.Claims;
+using System.Diagnostics.Eventing.Reader;
 
 namespace AI_Wardrobe.Controllers
 {
@@ -13,35 +14,29 @@ namespace AI_Wardrobe.Controllers
         private readonly TransactionRepo _transactionRepo;
         private readonly OrderRepo _orderRepo;
         private readonly UserRepo _userRepo;
+        private readonly ProductRepo _productRepo;
+        private readonly CookieRepository _cookieRepo;
 
         public HomeController(
             ILogger<HomeController> logger,
             TransactionRepo transactionRepo,
             OrderRepo orderRepo,
-            UserRepo userRepo)
+            UserRepo userRepo,
+            ProductRepo productRepo,
+            CookieRepository cookieRepo)
         {
             _logger = logger;
             _transactionRepo = transactionRepo;
             _orderRepo = orderRepo;
             _userRepo = userRepo;
+            _productRepo = productRepo;
+            _cookieRepo = cookieRepo;
         }
 
         public IActionResult Index()
         {
-            // Get featured products to display on the home page
-            //var featuredProducts = _context.Items
-            //    .OrderBy(i => Guid.NewGuid()) // Random ordering
-            //    .Take(4)
-            //    .ToList();
-
-            //return View(featuredProducts);
-
-            return View();
-        }
-
-        public IActionResult ViewList()
-        {
-            return View();
+            var featuredProducts = _productRepo.GetFeaturedProduct();
+            return View(featuredProducts);
         }
 
         public IActionResult Privacy()
@@ -58,6 +53,7 @@ namespace AI_Wardrobe.Controllers
         public IActionResult PayPalConfirmation(
             string TransactionId,
             string Amount,
+            string Currency,
             string PayerName,
             string CreateTime,
             string Email)
@@ -67,9 +63,10 @@ namespace AI_Wardrobe.Controllers
                 return BadRequest("Invalid transaction.");
             }
 
-            var transaction = new TransactionVM
+            var transactionVm = new TransactionVM
             {
                 TransactionId = TransactionId,
+                Currency = Currency,
                 PayerName = PayerName,
                 PayerEmail = Email,
                 Amount = decimal.TryParse(Amount, out var amt) ? amt : (decimal?)null, // Fixed nullability issue
@@ -86,11 +83,12 @@ namespace AI_Wardrobe.Controllers
             var userId = _userRepo.GetUserId(email);
             if (userId.HasValue)
             {
-                bool success = _transactionRepo.AddTransaction(transaction, userId.Value);
+                bool success = _transactionRepo.AddTransaction(transactionVm, userId.Value, email);
                 if (!success)
                 {
                     return StatusCode(500, "Failed to save transaction.");
                 }
+
             }
             else
             {

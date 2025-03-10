@@ -106,6 +106,30 @@ namespace AI_Wardrobe.Repositories
         }
 
 
+        public List<OrderVM> GetOrderHistory(int userId)
+        {
+            return _aiWardrobeContext.Orders
+                .Where(o => o.Fkuserid == userId)
+                .OrderByDescending(o => o.Orderid)
+                .Select(order => new OrderVM
+                {
+                    Id = order.Orderid,
+                    Date = order.Orderdate,
+                    Status = order.Orderstatus,
+                }).ToList();
+        }
+
+        public List<string> GetOrderImageUrls(int orderId)
+        {
+            return (from o in _aiWardrobeContext.Orders
+                   join od in _aiWardrobeContext.OrderDetails
+                   on o.Orderid equals od.Fkorderid
+                   join i in _aiWardrobeContext.Items
+                   on od.Fkitemid equals i.Itemid
+                   where o.Orderid == orderId
+                   select i.Imageurl).ToList();
+        }
+
         public OrderVM? GetOrderVM(int orderId)
         {
             var order = _aiWardrobeContext.Orders
@@ -182,5 +206,6 @@ namespace AI_Wardrobe.Repositories
 
             return statusOptions;
         }
+
     }
 }

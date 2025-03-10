@@ -89,7 +89,7 @@ public partial class AiwardrobeContext : DbContext
             entity.Property(e => e.Itemdescription)
                 .HasMaxLength(1000)
                 .HasColumnName("itemdescription");
-            entity.Property(e => e.Itemname)
+            entity.Property(e => e.ItemName)
                 .HasMaxLength(100)
                 .HasColumnName("itemname");
             entity.Property(e => e.Itemprice).HasColumnName("itemprice");

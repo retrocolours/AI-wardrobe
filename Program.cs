@@ -35,7 +35,6 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserRoleRepo>();
 builder.Services.AddScoped<RoleRepo>();
-builder.Services.AddScoped<ShopAllRepo>();
 builder.Services.AddScoped<ProductRepo>();
 builder.Services.AddScoped<TransactionRepo>();
 builder.Services.AddScoped<OrderRepo>();

@@ -32,10 +32,12 @@ namespace AI_Wardrobe.Repositories
                    select new ProductVM
                    {
                        Id = i.Itemid,
+                       Name = i.ItemName,
                        Description = i.Itemdescription,
                        Price = i.Itemprice,
                        GenderId = i.Fkitemgenderid,
                        Gender = g.Itemgenderdescription,
+                       ImageUrl = i.Imageurl,
                        SizeId = i.Fksizeid,
                        Size = s.Sizedescription,
                        TypeId = i.Fktypeid,
@@ -62,6 +64,14 @@ namespace AI_Wardrobe.Repositories
                 return $"error,Error encountered creating.\n" +
                     $"Error message: {ex.Message}";
             }
+        }
+
+        public List<ProductVM> GetFeaturedProduct()
+        {
+            return GetAll().OrderBy(x => Guid.NewGuid()) // Randomize the order
+                           .Take(6) // Take the random number of records
+                           .ToList();
+
         }
 
         public string UpdateItem(Item item)
@@ -126,6 +136,7 @@ namespace AI_Wardrobe.Repositories
             return _aiWardrobeContext.Items.Where(item => item.Itemid == itemId).Select(item => new ProductVM
             {
                 Id = item.Itemid,
+                Name = item.ItemName,
                 Description = item.Itemdescription,
                 Price = item.Itemprice,
                 ImageUrl = item.Imageurl,

@@ -1,102 +1,109 @@
-﻿@model List<AI_Wardrobe.Models.Item>
+﻿@model List<AI_Wardrobe.ViewModels.ProductVM>
 @{
     ViewData["Title"] = "Home Page";
 }
 
+<!-- Main Banner Section -->
+<section class="main-banner">
+    <div class="banner-text">
+        <h2>Take Control of your Style</h2>
+        <p>Let Ai Wardrobe Lead the Way</p>
+        <button class="cta-btn">Shop All Collections</button>
+    </div>
+</section>
 
-    <!-- Main Banner Section -->
-    <section class="main-banner">
-        <div class="banner-text">
-            <h2>Take Control of your Style</h2>
-            <p>Let Ai Wardrobe Lead the Way</p>
-            <button class="cta-btn">Shop All Collections</button>
-        </div>
-    </section>
+<!-- Categories Section -->
+<section class="categories">
+    <div class="category">
+        <img src="./images/products/-14.webp" alt="Women's Coats">
+        <h4>Women's Coats</h4>
+        <button class="shop-btn">Shop Now</button>
+    </div>
+    <div class="category">
+        <img src="./images/products/guy_wearing_fashion_clothes__futuristic_style_by_coolarts223_dg0wso7-fullview.webp"
+            alt="Men's Coats">
+        <h4>Men's Coats</h4>
+        <button class="shop-btn">Shop Now</button>
+    </div>
+    <div class="category">
+        <img src="~/images/products/-10.webp" alt="Unisex">
+        <h4>Unisex</h4>
+        <button class="shop-btn">Shop Now</button>
+    </div>
+    <div class="category">
+        <img src="~/images/products/87ed0e2556f4bdcfac37c01663ccc515.webp" alt="Collections">
+        <h4>Collections</h4>
+        <button class="shop-btn">Shop Now</button>
+    </div>
+</section>
 
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="category">
-            <img src="~/images/women-coats.jpg" alt="Women's Coats">
-            <button class="shop-btn">Shop Now</button>
-        </div>
-        <div class="category">
-            <img src="~/images/mens-coats.jpg" alt="Men's Coats">
-            <button class="shop-btn">Shop Now</button>
-        </div>
-        <div class="category">
-            <img src="~/images/unisex.jpg" alt="Unisex">
-            <button class="shop-btn">Shop Now</button>
-        </div>
-        <div class="category">
-            <img src="~/images/collections.jpg" alt="Collections">
-            <button class="shop-btn">Shop Now</button>
-        </div>
-    </section>
-
-    <!-- Featured Products Section -->
-    <section class="trending-now">
-        <h3>Featured Products</h3>
-        <div class="product-container">
-            @if (Model != null && Model.Any())
+<!-- Featured Products Section -->
+<section class="trending-now">
+    <h3>Featured Products</h3>
+    <div class="product-container">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
             {
-                @foreach (var item in Model)
-                {
-                    <div class="product">
-                        @if (!string.IsNullOrEmpty(item.Imageurl))
-                        {
-                            <img src="@item.Imageurl" alt="@item.Itemtype">
-                        }
-                        else
-                        {
-                            <img src="~/images/placeholder.jpg" alt="Product Image">
-                        }
-                        <h4>@item.Itemtype</h4>
-                        <p>@item.Itemdescription</p>
-                        <p class="price">$@item.Itemprice</p>
-                        <a href="/Shop/Details/@item.Itemid" class="view-btn">View Details</a>
-                    </div>
-                }
+                <div class="product">
+                    <img class="img-fluid" id="img-image" src=@item.ImageUrl />
+                    <h5>@item.Name</h5>
+                    <p class="price">$@item.Price</p>
+                    <a href="/Shop/Details/@item.Id" class="view-btn">View Details</a>
+                </div>
             }
-            else
-            {
-                <p>No products available at the moment.</p>
-            }
-        </div>
-    </section>
+        }
+        else
+        {
+            <p>No products available at the moment.</p>
+        }
+    </div>
+</section>
 
 <link rel="stylesheet" href="~/css/image.css" />
 <style>
     .product-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px;
+        justify-content: space-evenly;
     }
-    
+
     .product {
-        flex: 0 0 calc(25% - 20px);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         padding: 15px;
         border-radius: 5px;
         transition: transform 0.3s ease;
+        width: 100%;
+        max-width: 250px;
     }
-    
+
     .product:hover {
         transform: translateY(-5px);
+
     }
-    
+
     .product img {
+        margin-bottom: 16px;
         width: 100%;
-        height: 200px;
+        height: 100%;
+        max-height: 400px;
         object-fit: cover;
-        border-radius: 3px;
+        object-position: top;
     }
-    
+
+    .category img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        object-position: top;
+    }
+
     .price {
         font-weight: bold;
         color: #d94c1a;
     }
-    
+
     .view-btn {
         display: inline-block;
         background-color: #333;
@@ -106,10 +113,14 @@
         text-decoration: none;
         margin-top: 10px;
     }
-    
+
     .view-btn:hover {
         background-color: #555;
     }
+
+    }
+
+
 
     }
 </style>

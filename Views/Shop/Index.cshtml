@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopAllVM>
+﻿@model IEnumerable<ProductVM>
 @using AI_Wardrobe.ViewModels;
 @using Microsoft.AspNetCore.Http;
 
@@ -14,15 +14,15 @@
     @foreach (var item in Model)
     {
         <div class="product">
-            <img src="@item.Image" alt="@item.Description" class="product-image" />
+            <img class="product-image" src="@item.ImageUrl" alt="@item.Description"/>
             <div class="product-details">
-                <h3 class="product-title">@item.Description</h3>
-                <p class="product-price">@item.Currency @item.Price?.ToString("0.00")</p>
-                <button class="btn btn-primary add-to-cart"
-                        data-product-id="@item.ID"
-                        data-product-name="@item.Description"
+                <h3 class="product-name">@item.Name</h3>
+                <p class="product-title">@item.Description</p>
+                <p class="product-price">@item.Price?.ToString("0.00")</p>
+                <button class="btn btn-primary add-to-cart" data-product-id="@item.Id" data-product-image="@item.ImageUrl" 
+                        data-product-name="@item.Name"
                         data-product-price="@(item.Price.HasValue ? item.Price.Value.ToString("0.00") : "0")"
-                        data-product-currency="@item.Currency">
+                        data-product-currency="@item.Price">
                     Add to Cart
                 </button>
             </div>
@@ -36,37 +36,19 @@
     <script>
         $(document).ready(function () {
             $(".add-to-cart").click(function () {
-                var productId = $(this).data("product-id");
-                var productName = $(this).data("product-name");
-                var productPrice = parseFloat($(this).data("product-price")) || 0;
+                let productId = $(this).data("product-id");
+                let productImage = $(this).data("product-image");
+                let productName = $(this).data("product-name");
+                let price = parseFloat($(this).data("product-price")) || 0;
 
                 $.ajax({
                     url: "/shopping-cart/add",
                     type: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ productId, productName, price: productPrice }),
+                    data: JSON.stringify({ productId, productImage, productName, price }),
                     success: function (response) {
                         console.log("Cart updated:", response);
                         $("#cart-message").text(response.message).fadeIn().delay(2000).fadeOut();
-                    },
-                    error: function (xhr) {
-                        alert("Error: " + (xhr.responseJSON?.message || "Something went wrong."));
-                    }
-                });
-            });
-
-            $(".remove-from-cart").click(function () {
-                var productId = $(this).data("product-id");
-
-                $.ajax({
-                    url: "/shopping-cart/remove",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ productId }),
-                    success: function (response) {
-                        console.log("Cart updated:", response);
-                        $("#cart-message").text(response.message).fadeIn().delay(2000).fadeOut();
-                        location.reload();
                     },
                     error: function (xhr) {
                         alert("Error: " + (xhr.responseJSON?.message || "Something went wrong."));
@@ -75,4 +57,8 @@
             });
         });
     </script>
+
+    <style>
+
+    </style>
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace AI_Wardrobe.ViewModels
@@ -26,5 +27,9 @@ namespace AI_Wardrobe.ViewModels
 
         //Drop down options
         public List<SelectListItem>? StatusOptions;
+
+        //Image usl(s) for disaplying in order history, hould be the usrl of the items in the order
+        [ValidateNever]
+        public List<string> Images { get; set; }
     }
 }

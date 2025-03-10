@@ -14,7 +14,7 @@ namespace AI_Wardrobe.Controllers
         private readonly UserRepo _userRepo;
         private readonly TransactionRepo _transactionRepo;
 
-        public AdminController(ProductRepo productRepo, OrderRepo orderRepo, 
+        public AdminController(ProductRepo productRepo, OrderRepo orderRepo,
             UserRepo userRepo, TransactionRepo transactionRepo)
         {
             _productRepo = productRepo;
@@ -50,14 +50,15 @@ namespace AI_Wardrobe.Controllers
 
             if (ModelState.IsValid)
             {
-                var item = new Item {
-                                    Itemprice = productVM.Price,
-                                    Itemdescription = productVM.Description,
-                                    Imageurl = productVM.ImageUrl,
-                                    Fkitemgenderid = productVM.GenderId,
-                                    Fksizeid = productVM.SizeId,
-                                    Fktypeid = productVM.TypeId
-                                };
+                var item = new Item
+                {
+                    Itemprice = productVM.Price,
+                    Itemdescription = productVM.Description,
+                    Imageurl = productVM.ImageUrl,
+                    Fkitemgenderid = productVM.GenderId,
+                    Fksizeid = productVM.SizeId,
+                    Fktypeid = productVM.TypeId
+                };
 
                 var returnMessage = _productRepo.AddItem(item);
                 return RedirectToAction("Index", new { message = returnMessage });
@@ -95,7 +96,7 @@ namespace AI_Wardrobe.Controllers
             {
                 return RedirectToAction("Index", new { message = $"Unable to manage product id: {id}" });
             }
-        
+
         }
 
         [HttpPost]
@@ -143,7 +144,8 @@ namespace AI_Wardrobe.Controllers
         [HttpPost]
         public IActionResult UpdateOrderStatus(OrderVM orderVM)
         {
-            if(_orderRepo.UpdateOrderStatus(orderVM.Id, orderVM.Status)) { 
+            if (_orderRepo.UpdateOrderStatus(orderVM.Id, orderVM.Status))
+            {
 
             }
             return RedirectToAction("ViewUpdateOrder", new { orderId = orderVM.Id });

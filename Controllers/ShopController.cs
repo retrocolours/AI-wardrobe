@@ -6,16 +6,16 @@ namespace AI_Wardrobe.Controllers
 {
     public class ShopController : Controller
     {
-        private readonly ShopAllRepo _shopallRepo;
+        private readonly ProductRepo _productRepo;
 
-        public ShopController(ShopAllRepo shopallRepo)
+        public ShopController(ProductRepo productRepo)
         {
-            _shopallRepo = shopallRepo;
+            _productRepo = productRepo;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<ShopAllVM> products = _shopallRepo.GetAllProducts();
+            IEnumerable<ProductVM> products = _productRepo.GetAll();
             return View("Index", products);
         }
 

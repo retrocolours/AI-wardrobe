@@ -1,6 +1,7 @@
 using AI_Wardrobe.Data;
 using AI_Wardrobe.Models;
 using AI_Wardrobe.ViewModels;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,11 +11,13 @@ namespace AI_Wardrobe.Repositories
     {
         private readonly AiwardrobeContext _context;
         private readonly UserRepo _userRepo;
+        private readonly CookieRepository _cookieRepo;
 
-        public TransactionRepo(AiwardrobeContext context, UserRepo userRepo)
+        public TransactionRepo(AiwardrobeContext context, UserRepo userRepo, CookieRepository cookieRepo)
         {
             _context = context;
             _userRepo = userRepo;
+            _cookieRepo = cookieRepo;
         }
 
         public IEnumerable<TransactionVM> GetAllTransactions()
@@ -41,7 +44,7 @@ namespace AI_Wardrobe.Repositories
             }
         }
 
-        public bool AddTransaction(TransactionVM transaction, int userId)
+        public bool AddTransaction(TransactionVM transactionVm, int userId, string email)
         {
             try
             {
@@ -54,16 +57,40 @@ namespace AI_Wardrobe.Repositories
                 _context.Orders.Add(order);
                 _context.SaveChanges();
 
+                //add the order details as well
+                var cartItems = _cookieRepo.GetCartItems(email);
+                foreach (var cartItem in cartItems)
+                {
+                    var orderDetails = new OrderDetail
+                    {
+                        Fkitemid = cartItem.ProductId,
+                        Fkorderid = order.Orderid,
+                        Quantity = cartItem.Quantity,
+                        Price = cartItem.Price
+                    };
+
+                    _context.OrderDetails.Add(orderDetails);
+                    _context.SaveChanges();
+                }
+
+
                 var newTransaction = new Transaction
                 {
-                    Totalamount = transaction.Amount,
-                    Transactiondate = transaction.CreateTime.HasValue ? transaction.CreateTime.Value : DateTime.UtcNow,
-                    Transactionstatus = transaction.Transactionstatus ?? "Completed",
+                    Totalamount = transactionVm.Amount,
+                    Transactiondate = transactionVm.CreateTime.HasValue ? transactionVm.CreateTime.Value : DateTime.UtcNow,
+                    Transactionstatus = transactionVm.Transactionstatus ?? "Complete",
+                    Paypaltransactionid = transactionVm.TransactionId,
+                    Payername = transactionVm.PayerName,
+                    Payeremail = transactionVm.PayerEmail,
+                    Currency = transactionVm.Currency,
+                    Paymentmethod = transactionVm.PaymentMethod,
                     Fkorderid = order.Orderid,
                 };
 
                 _context.Transactions.Add(newTransaction);
                 _context.SaveChanges();
+                _cookieRepo.ClearCartItems(email);
+
                 return true;
             }
             catch (Exception ex)

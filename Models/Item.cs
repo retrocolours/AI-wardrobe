@@ -9,7 +9,7 @@ public partial class Item
 
     public string? Itemtype { get; set; }
 
-    public string? Itemname { get; set; }
+    public string? ItemName { get; set; }
 
     public string? Itemdescription { get; set; }
 
