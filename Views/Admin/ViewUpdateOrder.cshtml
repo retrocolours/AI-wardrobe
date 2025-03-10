@@ -4,9 +4,10 @@
     ViewData["Title"] = "View and Update Order";
 }
 
-<h1>View and Update Order</h1>
 
 <div class="row container">
+    <h1>View and Update Order</h1>
+
     <form asp-action="UpdateOrderStatus">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
@@ -67,7 +68,7 @@
 <style>
     .container {
         width: 95%;
-        max-width: 1400px;
+        max-width: 760px;
         margin: auto;
     }
 
