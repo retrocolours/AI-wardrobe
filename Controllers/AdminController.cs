@@ -4,9 +4,11 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using AI_Wardrobe.Repositories;
 using AI_Wardrobe.Models;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AI_Wardrobe.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ProductRepo _productRepo;

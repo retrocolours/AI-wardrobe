@@ -3,18 +3,16 @@
 @inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
-    @* //todo add filter next time, only user's with admin role should see this link *@
-
-
-
-
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="ShoppingCart" asp-action="Index" title="Shopping Bag">
-                <img class="shopping-bag" width="24px" height="24px" src="~/images/icons/shopping-bag.svg" alt="shopping bag">
-            </a>
-        </li>
+        @if (!User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="ShoppingCart" asp-action="Index" title="Shopping Bag">
+                    <img class="shopping-bag" width="24px" height="24px" src="~/images/icons/shopping-bag.svg" alt="shopping bag">
+                </a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="User" asp-action="MyProfile" title="Manage Account">
                 <img class="user-icon" width="24px" height="24px" src="~/images/icons/person.svg" alt="user">
@@ -27,9 +25,12 @@
                 </button>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-        </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+            </li>
+        }
     }
     else
     {

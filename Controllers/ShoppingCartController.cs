@@ -4,8 +4,10 @@ using AI_Wardrobe.Repositories;
 using AI_Wardrobe.Models;
 using System.Collections.Generic;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("shopping-cart")]
+[Authorize(Roles = "Customer")]
 public class ShoppingCartController : Controller
 {
     private readonly CookieRepository _cookieRepo;
