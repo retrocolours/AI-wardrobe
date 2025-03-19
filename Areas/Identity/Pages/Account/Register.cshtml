@@ -1,7 +1,7 @@
 @page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+
 }
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -10,7 +10,15 @@
 
 <div class="row">
     <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-        <h2>Create a new account.</h2>
+        
+        @if (Convert.ToBoolean(ViewData["InitialSetup"]))
+        {
+            <h2> Create your initial admin account.</h2>
+        } else
+        {
+            <h2>Create a new account.</h2>
+        }
+
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
         <div class="form-floating mb-3">

@@ -57,6 +57,11 @@ namespace AI_Wardrobe.Repositories
             }
         }
 
+        public Boolean HasUsers()
+        {
+            return _aiWardrobeContext.RegisteredUsers.ToList().Count > 0;
+        }
+
         public UserVm? GetUserVM(string email)
         {
             var registeredUser = GetUserFromEmail(email);

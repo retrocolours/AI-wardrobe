@@ -15,14 +15,16 @@ namespace AI_Wardrobe.Controllers
         private readonly OrderRepo _orderRepo;
         private readonly UserRepo _userRepo;
         private readonly TransactionRepo _transactionRepo;
+        private readonly UserRoleRepo _userRoleRepo;
 
         public AdminController(ProductRepo productRepo, OrderRepo orderRepo,
-            UserRepo userRepo, TransactionRepo transactionRepo)
+            UserRepo userRepo, TransactionRepo transactionRepo, UserRoleRepo userRoleRepo)
         {
             _productRepo = productRepo;
             _orderRepo = orderRepo;
             _userRepo = userRepo;
             _transactionRepo = transactionRepo;
+            _userRoleRepo = userRoleRepo;
         }
 
         public IActionResult Index()
@@ -151,6 +153,30 @@ namespace AI_Wardrobe.Controllers
 
             }
             return RedirectToAction("ViewUpdateOrder", new { orderId = orderVM.Id });
+        }
+
+
+        public async Task<IActionResult> ViewAdmins()
+        {
+            var adminList = await _userRoleRepo.GetAdminUsers();
+            return View(adminList);
+        }
+
+        public async Task<IActionResult> AddAdmin(String email)
+        {
+            await _userRoleRepo.AddAsAdmin(email);
+            return RedirectToAction("ViewAdmins");
+        }
+
+        public async Task<IActionResult> RemoveAdmin(String email)
+        {
+            var adminList = await _userRoleRepo.GetAdminUsers();
+            //prevent removal of the last admin fo fail safety
+            if(adminList.Count() > 1)
+            {
+                await _userRoleRepo.RemoveFromAdmin(email);
+            }
+            return RedirectToAction("ViewAdmins");
         }
 
         [HttpPost]

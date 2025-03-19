@@ -43,6 +43,11 @@ namespace AI_Wardrobe.Controllers
             return View(featuredProducts);
         }
 
+        public IActionResult Setup()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
