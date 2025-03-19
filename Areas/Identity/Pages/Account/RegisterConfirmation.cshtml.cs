@@ -5,6 +5,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using AI_Wardrobe.Models;
 using AI_Wardrobe.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly IEmailSender _sender = sender;
         private readonly UserRepo _userRepo;
-        private readonly UserRoleRepo userRoleRepo;
+        private readonly UserRoleRepo _userRoleRepo;
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -67,6 +68,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                     protocol: Request.Scheme);
+
             }
 
             return Page();

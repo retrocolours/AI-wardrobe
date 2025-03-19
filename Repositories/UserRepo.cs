@@ -1,9 +1,6 @@
-﻿using AI_Wardrobe.Data;
-using AI_Wardrobe.Models;
+﻿using AI_Wardrobe.Models;
 using AI_Wardrobe.ViewModels;
-using AIWardrobe.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace AI_Wardrobe.Repositories
 {
@@ -51,13 +48,131 @@ namespace AI_Wardrobe.Repositories
                 {
                     throw new ArgumentException("Email cannot be empty.", nameof(email));
                 }
-
-                return _aiWardrobeContext.RegisteredUsers.FirstOrDefault(u => u.Email == email);
+                return _aiWardrobeContext.RegisteredUsers.Where(u => u.Email == email).FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving user by email: {ex.Message}");
                 return null;
+            }
+        }
+
+        public Boolean HasUsers()
+        {
+            return _aiWardrobeContext.RegisteredUsers.ToList().Count > 0;
+        }
+
+        public UserVm? GetUserVM(string email)
+        {
+            var registeredUser = GetUserFromEmail(email);
+
+            if (registeredUser != null)
+            {
+                var userVM = new UserVm
+                {
+                    Id = registeredUser.Userid,
+                    FirstName = registeredUser.Firstname,
+                    LastName = registeredUser.Lastname,
+                    Phone = registeredUser.Phone,
+                    Email = registeredUser.Email,
+                };
+
+                if (userVM != null)
+                {
+                    var adr = GetAddress(userVM.Id).FirstOrDefault();
+
+                    userVM.Address1 = adr?.Address1;
+                    userVM.Address2 = adr?.Address2;
+                    userVM.City = adr?.City;
+                    userVM.Province = adr?.Province;
+                    userVM.PostalCode = adr?.Postalcode;
+                }
+
+                return userVM;
+            }
+
+            //return null if no user data found
+            return null;
+        }
+
+        public bool UpdateUser(RegisteredUser user)
+        {
+            try
+            {
+                _aiWardrobeContext.RegisteredUsers.Update(user);
+                _aiWardrobeContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+
+            {
+                return false;
+            }
+        }
+
+        public IEnumerable<RegisteredUser> GetUserByID(int id)
+        {
+            return _aiWardrobeContext.RegisteredUsers.Where(usr => usr.Userid == id);
+        }
+
+        public int? GetUserId(String email)
+        {
+            var registerdUser = _aiWardrobeContext.RegisteredUsers.Where((user) => user.Email == email).FirstOrDefault();
+            Console.Write($"registerdUser: {email}, id: {registerdUser?.Userid}");
+            return registerdUser?.Userid;
+        }
+
+        public string? GetFullName(int userId)
+        {
+            return _aiWardrobeContext.RegisteredUsers
+                .Where(usr => usr.Userid == userId)
+                .Select(usr => $"{usr.Firstname} {usr.Lastname}")
+                .FirstOrDefault();
+        }
+
+        public string? GetFullAddress(int userId)
+        {
+            return _aiWardrobeContext.Addresses
+                .Where(adr => adr.Fkuserid == userId)
+                .Select(adr => $"{adr.Address1} {adr.Address2} {adr.City} " +
+                                $"{adr.Province} {adr.Postalcode}")
+                .FirstOrDefault();
+        }
+
+        public IEnumerable<Address> GetAddress(int userId)
+        {
+            return _aiWardrobeContext.Addresses.Where(adr => adr.Fkuserid == userId);
+        }
+
+        public bool UpdateAddress(int userId, Address address)
+        {
+            try
+            {
+                var adr = GetAddress(userId).FirstOrDefault();
+
+                //if address already exist update, if not then insert
+                if (adr != null)
+                {
+                    adr.Address1 = address.Address1;
+                    adr.Address2 = address.Address2;
+                    adr.City = address.City;
+                    adr.Province = address.Province;
+                    adr.Postalcode = address.Postalcode;
+
+                    _aiWardrobeContext.Addresses.Update(adr);
+                }
+                else
+                {
+                    _aiWardrobeContext.Add(address);
+                }
+
+                _aiWardrobeContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
     }

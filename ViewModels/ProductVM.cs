@@ -9,6 +9,10 @@ namespace AI_Wardrobe.ViewModels
         [Display(Name = "Product ID")]
         public int Id { get; set; }
 
+        [Display(Name = "Name")]
+        [Required]
+        public string? Name { get; set; }
+
         [Display(Name = "Description")]
         [Required]
         public string? Description { get; set; }

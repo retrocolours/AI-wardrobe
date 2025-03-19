@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\Account\Manage\" />
     <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 

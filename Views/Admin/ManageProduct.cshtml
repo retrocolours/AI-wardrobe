@@ -4,10 +4,9 @@
     ViewData["Title"] = "ManageProduct";
 }
 
-<h1>ManageProduct</h1>
+<div class="row container">
+    <h1>ManageProduct</h1>
 
-<hr />
-<div class="row">
     <div class="col-md-4">
         <h4>Product Image</h4>
         <img class="img-fluid" id="img-image" src=@Model.ImageUrl style="max-height: 100%; width: auto; object-fit: contain;" />
@@ -23,7 +22,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control" rows="8"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -59,14 +58,30 @@
             </div>
         </form>
     </div>
+
+    <div>
+        <a asp-action="ProductList">Back to List</a>
+    </div>
 </div>
 
-<div>
-    <a asp-action="ProductList">Back to List</a>
-</div>
+
 
 @Html.Partial("_ImageBrowser", new string[] { "input-image", "img-image" })
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+<style>
+    .container {
+        width: 95%;
+        max-width: 1400px;
+        margin: auto;
+    }
+
+    #img-image{
+        height:500px;
+        width:auto;
+    }
+</style>

@@ -4,16 +4,27 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using AI_Wardrobe.Repositories;
 using AI_Wardrobe.Models;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AI_Wardrobe.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ProductRepo _productRepo;
+        private readonly OrderRepo _orderRepo;
+        private readonly UserRepo _userRepo;
+        private readonly TransactionRepo _transactionRepo;
+        private readonly UserRoleRepo _userRoleRepo;
 
-        public AdminController(ProductRepo productRepo)
+        public AdminController(ProductRepo productRepo, OrderRepo orderRepo,
+            UserRepo userRepo, TransactionRepo transactionRepo, UserRoleRepo userRoleRepo)
         {
             _productRepo = productRepo;
+            _orderRepo = orderRepo;
+            _userRepo = userRepo;
+            _transactionRepo = transactionRepo;
+            _userRoleRepo = userRoleRepo;
         }
 
         public IActionResult Index()
@@ -43,14 +54,15 @@ namespace AI_Wardrobe.Controllers
 
             if (ModelState.IsValid)
             {
-                var item = new Item {
-                                    Itemprice = productVM.Price,
-                                    Itemdescription = productVM.Description,
-                                    Imageurl = productVM.ImageUrl,
-                                    Fkitemgenderid = productVM.GenderId,
-                                    Fksizeid = productVM.SizeId,
-                                    Fktypeid = productVM.TypeId
-                                };
+                var item = new Item
+                {
+                    Itemprice = productVM.Price,
+                    Itemdescription = productVM.Description,
+                    Imageurl = productVM.ImageUrl,
+                    Fkitemgenderid = productVM.GenderId,
+                    Fksizeid = productVM.SizeId,
+                    Fktypeid = productVM.TypeId
+                };
 
                 var returnMessage = _productRepo.AddItem(item);
                 return RedirectToAction("Index", new { message = returnMessage });
@@ -88,7 +100,7 @@ namespace AI_Wardrobe.Controllers
             {
                 return RedirectToAction("Index", new { message = $"Unable to manage product id: {id}" });
             }
-        
+
         }
 
         [HttpPost]
@@ -117,48 +129,87 @@ namespace AI_Wardrobe.Controllers
 
         }
 
-        public IActionResult ViewUpdateOrder()
+        public IActionResult ViewUpdateOrder(int orderId)
         {
-            return View();
+            var orderVm = _orderRepo.GetOrderVM(orderId);
+            if (orderVm != null)
+            {
+                orderVm.TransactionVM = _transactionRepo.GetTransactionVm(orderId);
+                orderVm.StatusOptions = _orderRepo.GetStatusOptions();
+
+                return View(orderVm);
+            }
+            else
+            {
+                return RedirectToAction("Index", new { message = $"Unable to find order id: {orderId}" });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(OrderVM orderVM)
+        {
+            if (_orderRepo.UpdateOrderStatus(orderVM.Id, orderVM.Status))
+            {
+
+            }
+            return RedirectToAction("ViewUpdateOrder", new { orderId = orderVM.Id });
+        }
+
+
+        public async Task<IActionResult> ViewAdmins()
+        {
+            var adminList = await _userRoleRepo.GetAdminUsers();
+            return View(adminList);
+        }
+
+        public async Task<IActionResult> AddAdmin(String email)
+        {
+            await _userRoleRepo.AddAsAdmin(email);
+            return RedirectToAction("ViewAdmins");
+        }
+
+        public async Task<IActionResult> RemoveAdmin(String email)
+        {
+            var adminList = await _userRoleRepo.GetAdminUsers();
+            //prevent removal of the last admin fo fail safety
+            if(adminList.Count() > 1)
+            {
+                await _userRoleRepo.RemoveFromAdmin(email);
+            }
+            return RedirectToAction("ViewAdmins");
         }
 
         [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile image)
         {
-            // Ensure a file is uploaded
             if (image != null && image.Length > 0)
             {
                 try
                 {
-                    // Get file name and path
                     var fileName = ConvertToHtmlSafeString(Path.GetFileName(image.FileName));
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images/products", fileName);
 
-                    // Ensure the directory exists
                     var directoryPath = Path.GetDirectoryName(path);
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
                     }
 
-                    // Save the file asynchronously to the server
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await image.CopyToAsync(stream);
                     }
 
                     var src = Path.Combine("/images/products", fileName);
-                    // Return a success message as JSON
+
                     return Json(new { success = true, message = "Image uploaded successfully!", filePath = src });
                 }
                 catch (Exception ex)
                 {
-                    // Return error message as JSON
                     return Json(new { success = false, message = "Error uploading image: " + ex.Message });
                 }
             }
 
-            // Return an error message if no file was uploaded
             return Json(new { success = false, message = "No image selected!" });
         }
 
@@ -166,13 +217,11 @@ namespace AI_Wardrobe.Controllers
         {
             var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images/products");
 
-            // Get all files in the directory
             var files = Directory.GetFiles(directoryPath);
 
-            // Return just the filenames (or you can adjust as needed)
             var fileNames = files.Select(f => Path.GetFileName(f)).ToList();
 
-            return PartialView("_ImageList", fileNames);  // Return the partial view with the files
+            return PartialView("_ImageList", fileNames);
         }
 
         private void FillProductVMOptions(ProductVM vm)

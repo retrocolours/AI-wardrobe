@@ -1,9 +1,5 @@
 /* Reset default margin and padding */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 /* General Body and Font Settings */
 body {
@@ -55,38 +51,72 @@ body {
 }
 
 /* Main Banner Section */
-.main-banner {
-  background-image: url("banner.jpg");
-  background-size: cover;
-  background-position: center;
-  padding: 60px 0;
-  text-align: center;
-  color: white;
-}
+
+
 
 .banner-text h2 {
+  color: white;
+  text-shadow: 
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000,
+      2px  2px 5px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      margin-top: 100px;3rYt|
   font-size: 3rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .banner-text p {
-  font-size: 1.5rem;
+  color: white;
+  text-shadow: 
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000,
+      2px  2px 5px rgba(0, 0, 0, 0.5);
+      text-align: center;
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
 .cta-btn {
-  background-color: #ff6f61;
-  color: white;
   padding: 15px 30px;
   font-size: 1.2rem;
   border: none;
   cursor: pointer;
   border-radius: 30px;
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
+  box-shadow: 1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000,
+  2px  2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .cta-btn:hover {
-  background-color: #ff3b2f;
+  background-color: black;
+  color: white;
+}
+
+.shop-btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.1s;
+  background-color: black;
+  color: white;
+  box-shadow: 1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000,
+  2px  2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.shop-btn:hover {
+  background-color: white;
+  color: black;
 }
 
 /* Categories Section */
@@ -106,20 +136,7 @@ body {
   border-radius: 8px;
 }
 
-.shop-btn {
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  margin-top: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.shop-btn:hover {
-  background-color: #ff6f61;
-}
 
 /* Trending Now Section */
 .trending-now {
@@ -191,42 +208,23 @@ body {
         }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.1s;
+  box-shadow: 1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000,
+  2px  2px 5px rgba(0, 0, 0, 0.5);
 }
 
     .btn:hover {
-        background-color: #ff6f61;
+      background-color: black;
+      color: white;
     }
 
-.view-orders {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-}
-
-    .view-orders:hover {
-        background-color: #ff6f61;
-    }
 
 
 
@@ -257,3 +255,5 @@ body {
   color: white;
   margin: 0 10px;
 }
+
+

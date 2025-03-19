@@ -1,4 +1,5 @@
 ﻿using AI_Wardrobe.Models;
+using AI_Wardrobe.ViewModels;
 using System.Text.Json;
 
 namespace AI_Wardrobe.Repositories
@@ -22,7 +23,9 @@ namespace AI_Wardrobe.Repositories
             var httpContext = _httpContextAccessor.HttpContext;
             if (httpContext == null) return new List<CartItem>();
 
-            var cartJson = httpContext.Request.Cookies[GetCartCookieKey(userId)];
+            //remove @ sign to prevent error in cookie storage
+            string sanitizedUserId = userId.Replace("@", "");
+            var cartJson = httpContext.Request.Cookies[GetCartCookieKey(sanitizedUserId)];
 
             if (string.IsNullOrEmpty(cartJson))
                 return new List<CartItem>();
@@ -37,7 +40,7 @@ namespace AI_Wardrobe.Repositories
             }
         }
 
-        public void AddItem(string userId, int productId, string productName, decimal price)
+        public void AddItem(string userId, int productId, string imageUrl, string productName, decimal price)
         {
             var cart = GetCartItems(userId);
             var item = cart.FirstOrDefault(c => c.ProductId == productId);
@@ -51,6 +54,7 @@ namespace AI_Wardrobe.Repositories
                 cart.Add(new CartItem
                 {
                     UserId = userId,
+                    ProductImage = imageUrl,
                     ProductId = productId,
                     ProductName = productName,
                     Price = price,
@@ -81,17 +85,35 @@ namespace AI_Wardrobe.Repositories
         private void SaveCart(string userId, List<CartItem> cart)
         {
             var httpContext = _httpContextAccessor.HttpContext;
-            if (httpContext == null) return; 
+            if (httpContext == null) return;
 
             var cartJson = JsonSerializer.Serialize(cart);
-
-            httpContext.Response.Cookies.Append(GetCartCookieKey(userId), cartJson, new CookieOptions
+            //remove @ sign to prevent error in cookie storage
+            string sanitizedUserId = userId.Replace("@", "");
+            httpContext.Response.Cookies.Append(GetCartCookieKey(sanitizedUserId), cartJson, new CookieOptions
             {
                 Expires = DateTime.UtcNow.AddDays(7),
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Strict
             });
+        }
+
+        public void ClearCartItems(string userId)
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null) return;
+
+            // Remove @ sign to prevent error in cookie storage
+            string sanitizedUserId = userId.Replace("@", "");
+            string cookieKey = GetCartCookieKey(sanitizedUserId);
+
+            // Check if the cookie exists
+            if (httpContext.Request.Cookies.ContainsKey(cookieKey))
+            {
+                // Delete the cookie
+                httpContext.Response.Cookies.Delete(cookieKey);
+            }
         }
     }
 }

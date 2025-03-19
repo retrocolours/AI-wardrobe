@@ -4,8 +4,10 @@ using AI_Wardrobe.Repositories;
 using AI_Wardrobe.Models;
 using System.Collections.Generic;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("shopping-cart")]
+[Authorize(Roles = "Customer")]
 public class ShoppingCartController : Controller
 {
     private readonly CookieRepository _cookieRepo;
@@ -37,7 +39,7 @@ public class ShoppingCartController : Controller
         if (User.Identity.IsAuthenticated)
         {
             string userName = User.Identity.Name;
-            _cookieRepo.AddItem(userName, item.ProductId, item.ProductName, item.Price);
+            _cookieRepo.AddItem(userName ,item.ProductId, item.ProductImage, item.ProductName, item.Price);
             return Ok(new { message = $"Item '{item.ProductName}' added to cart.", cart = _cookieRepo.GetCartItems(userName) });
         }
 

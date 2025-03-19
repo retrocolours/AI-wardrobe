@@ -1,22 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AI_Wardrobe.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AI_Wardrobe.Controllers
 {
     public class OrderController : Controller
     {
-        public IActionResult Checkout()
+        private readonly OrderRepo _orderRepo;
+
+        public OrderController(OrderRepo orderRepo)
         {
-            return View();
+            _orderRepo = orderRepo;
         }
 
-        public IActionResult Confirmation()
+        public IActionResult OrderHistory(int userId)
         {
-            return View();
-        }
 
-        public IActionResult OrderHistory()
-        {
-            return View();
+            var orderHistory = _orderRepo.GetOrderHistory(userId);
+            foreach (var orderHistoryItem in orderHistory)
+            {
+                var images = _orderRepo.GetOrderImageUrls(orderHistoryItem.Id);
+                orderHistoryItem.Images = images;
+            }
+
+            return View(orderHistory);
         }
     }
 }

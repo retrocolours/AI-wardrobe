@@ -21,8 +21,8 @@ builder.Services.AddDbContext<AiwardrobeContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Identity Configuration (Supports Roles)
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-    options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -35,8 +35,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<UserRoleRepo>();
 builder.Services.AddScoped<RoleRepo>();
-builder.Services.AddScoped<ShopAllRepo>();
 builder.Services.AddScoped<ProductRepo>();
+builder.Services.AddScoped<TransactionRepo>();
+builder.Services.AddScoped<OrderRepo>();
+
 
 // Register Services
 builder.Services.AddTransient<IEmailService, EmailService>();

@@ -9,9 +9,19 @@ public partial class Transaction
 
     public decimal? Totalamount { get; set; }
 
-    public DateOnly? Transactiondate { get; set; }
+    public DateTime? Transactiondate { get; set; }
 
     public string? Transactionstatus { get; set; }
+
+    public string? Paypaltransactionid { get; set; }
+
+    public string? Payername { get; set; }
+
+    public string? Payeremail { get; set; }
+
+    public string? Currency { get; set; }
+
+    public string? Paymentmethod { get; set; }
 
     public int? Fkorderid { get; set; }
 

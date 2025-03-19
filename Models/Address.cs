@@ -7,11 +7,9 @@ public partial class Address
 {
     public int Addressid { get; set; }
 
-    public int? Streetnum { get; set; }
+    public string? Address1 { get; set; }
 
-    public string? Streetname { get; set; }
-
-    public int? Apartmentnum { get; set; }
+    public string? Address2 { get; set; }
 
     public string? City { get; set; }
 

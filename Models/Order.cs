@@ -11,11 +11,13 @@ public partial class Order
 
     public string? Orderstatus { get; set; }
 
-    public int? Fkuserid { get; set; }
+    public int Fkuserid { get; set; }
 
     public virtual RegisteredUser? Fkuser { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    public virtual OrderStatus? OrderstatusNavigation { get; set; }
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

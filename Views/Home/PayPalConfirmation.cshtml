@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Transaction Confirmation";
+}
+<div class="container">
+    <h2>Transaction Completed</h2>
+
+    <p><strong>Transaction ID:</strong> @ViewBag.TransactionId</p>
+    <p><strong>Payer Name:</strong> @ViewBag.PayerName</p>
+    <p><strong>Email:</strong> @ViewBag.Email</p>
+    <p><strong>Amount:</strong> $@ViewBag.Amount</p>
+    <p><strong>Transaction Date:</strong> @ViewBag.CreateTime</p>
+
+    <a href="/" class="btn btn-primary">Return to Home</a>
+</div>
+
+<style>
+    .container{
+        display: flex;
+        flex-flow: column;
+        width: 95%;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    p{
+        margin: 12px;
+    }
+
+    a, h2 {
+        margin:auto;
+    }
+</style>

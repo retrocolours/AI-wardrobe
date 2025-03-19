@@ -117,6 +117,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
         public async Task OnGetAsync(string returnUrl = null)
         {
             ViewData["SiteKey"] = _configuration.GetSection("recaptchaApiKey").Value;
+            ViewData["InitialSetup"] = !_userRepo.HasUsers();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -145,6 +146,7 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -172,16 +174,36 @@ namespace AI_Wardrobe.Areas.Identity.Pages.Account
                            $"clicking here</a>."
                     });
 
-                    //add the data to the user table
-                    RegisteredUser registerUser = new RegisteredUser()
-                    {
-                        Email = Input.Email,
-                    };
-                    _userRepo.AddUser(registerUser);
-                    //need to add the default user role eventually.
+                    ////add the data to the user table
+                    //RegisteredUser registerUser = new RegisteredUser()
+                    //{
+                    //    Email = Input.Email,
+                    //};
+                    //_userRepo.AddUser(registerUser);
+                    ////need to add the default user role eventually.
+                    //await _userRoleRepo.AddAsCustomer(registerUser.Email);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
+                        //add the data to the user table
+                        RegisteredUser registerUser = new RegisteredUser()
+                        {
+                            Email = Input.Email,
+                        };
+
+                        //first registered user during setup is by default admin, any succedding registration is by default a customer
+                        var initialSetup = !_userRepo.HasUsers();
+
+                        _userRepo.AddUser(registerUser);
+
+                        if (initialSetup)
+                        {
+                            await _userRoleRepo.AddAsAdmin(registerUser.Email);
+                        } else
+                        {
+                            await _userRoleRepo.AddAsCustomer(registerUser.Email);
+                        }
+
                         return RedirectToPage("RegisterConfirmation",
                             new
                             {

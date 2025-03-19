@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AI_Wardrobe.ViewModels.UserVm>
+
+@{
+    ViewData["Title"] = "User Roles";
+}
+
+<h1>Admin List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveAdmin" , new { email = item.Email })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+    <style>
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.table th {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table.table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table.table td:first-child {
+            width: 50%;
+        }
+
+        table.table td:last-child {
+            width: 50%;
+        }
+    </style>

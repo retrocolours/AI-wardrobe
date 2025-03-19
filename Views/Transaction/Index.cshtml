@@ -1,0 +1,40 @@
+@model IEnumerable<AI_Wardrobe.ViewModels.TransactionVM>
+
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h2>Transactions</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No transactions found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().TransactionId)</th>
+                <th>@Html.DisplayNameFor(model => model.First().PayerName)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Amount)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CreateTime)</th>
+                <th>@Html.DisplayNameFor(model => model.First().PayerEmail)</th>
+                <th>@Html.DisplayNameFor(model => model.First().PaymentMethod)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.TransactionId</td>
+                    <td>@transaction.PayerName</td>
+                    <td>@(transaction.Amount?.ToString("C", new System.Globalization.CultureInfo("en-CA")) ?? "N/A")</td>
+                    <td>@(transaction.CreateTime.HasValue ? TimeZoneInfo.ConvertTimeFromUtc(transaction.CreateTime.Value, TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time")).ToString("g") : "N/A")</td>
+                    <td>@transaction.PayerEmail</td>
+                    <td>@transaction.PaymentMethod</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

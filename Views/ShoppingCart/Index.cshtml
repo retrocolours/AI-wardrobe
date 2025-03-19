@@ -7,64 +7,105 @@
 
 <h2>Your Shopping Cart</h2>
 
-@if (Model == null || !Model.Any())
-{
-    <p>Your cart is empty.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr id="cart-item-@item.ProductId">
-                    <td>@item.ProductName</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>@item.Quantity</td>
-                    <td>
-                        <button class="btn btn-danger remove-from-cart" data-product-id="@item.ProductId">
-                            Remove
-                        </button>
-                    </td>
+<div class="item-container">
+    @if (Model == null || !Model.Any())
+    {
+        <p id="p-empty"> Your cart is empty.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th class="column-end">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="cart-item-@item.ProductId">
+                        <td><img src="@item.ProductImage" alt="@item.ProductName" class="product-image" /></td>
+                        <td class="product-title">@item.ProductName</td>
+                        <td class="product-price">@item.Price.ToString("C")</td>
+                        <td>@item.Quantity</td>
+                        <td class="column-end">
+                            <button class="btn btn-danger remove-from-cart" data-product-id="@item.ProductId">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<a href="/shop/index" class="btn btn-primary">Continue Shopping</a>
+        <div class="paypal-container">
+            <a href="/shop/index" class="btn btn-primary" id="continue-shop">Continue Shopping</a>
+
+            <div id="paypal-button-container"></div>
+        </div>
+
+    }
+</div>
+
+
+@* <script src="https://www.paypal.com/sdk/js?client-id=AT7K3ZVdTuazqSBSP54r1aOw__aaPFj0kumCmdq6dFkvn_2nV9fPkDHuR2FoZwd4eAq2N7mfk5c6MJmE&currency=CAD"></script> *@
+<script src="https://www.paypal.com/sdk/js?client-id=AWiYXEOfDl7Rf3fVgG_c4Pb6zWPN1L9-De2xOovgVCySPs5NJ7iKxgbl5_JuVx0jDmlAKMY_r_6gsHpH&currency=CAD"></script>
+
+<script>
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            let totalAmount = 0;
+            document.querySelectorAll(".product-price").forEach(priceElement => {
+                console.log('Original text:', priceElement.innerText);
+                let priceMatch = priceElement.innerText.match(/([\d.]+)/);
+                if (priceMatch) {
+                    totalAmount += parseFloat(priceMatch[1]);
+                }
+            });
+
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount.toFixed(2),
+                        currency_code: "CAD"
+                    }
+                }]
+            });
+        },
+        onApprove: function (data, actions) {
+
+            console.log(data);
+
+            return actions.order.capture().then(function (details) {
+                window.location.href = `/Home/PayPalConfirmation?` +
+                    `TransactionId=${encodeURIComponent(details.id)}` +
+                    `&Amount=${encodeURIComponent(details.purchase_units[0].amount.value)}` +
+                    `&Currency=${encodeURIComponent(details.purchase_units[0].amount.currency_code)}` +
+                    `&PayerName=${encodeURIComponent(details.payer.name.given_name)}` +
+                    `&CreateTime=${encodeURIComponent(details.create_time)}` +
+                    `&Email=${encodeURIComponent(details.payer.email_address)}`;
+            });
+        },
+        onCancel: function () {
+        },
+        onError: function () {
+        },
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'paypal'
+        }
+    }).render('#paypal-button-container');
+</script>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $(".add-to-cart").click(function () {
-                var productId = $(this).data("product-id");
-                var productName = $(this).data("product-name");
-                var productPrice = parseFloat($(this).data("product-price")) || 0;
-
-                $.ajax({
-                    url: "/shopping-cart/add",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ productId, productName, price: productPrice }),
-                    success: function (response) {
-                        console.log("Success:", response);
-                        $("#cart-message").text(response.message).fadeIn().delay(2000).fadeOut();
-                    },
-                    error: function (xhr) {
-                        alert("Error adding to cart: " + xhr.responseText);
-                    }
-                });
-            });
-
             $(".remove-from-cart").click(function () {
                 var productId = $(this).data("product-id");
                 var row = $("#cart-item-" + productId);
@@ -85,4 +126,44 @@ else
             });
         });
     </script>
+
+    <style>
+        #p-empty{
+            margin:auto;
+            text-align:center;
+            font-weight: bold;
+        }
+
+        .product-image {
+            width: 20%;
+            height: auto;
+            max-width: 200px;
+            max-height: 300px;
+        }
+
+        .item-container {
+            margin: auto;
+            width: 95%;
+            max-width: 1400px;
+        }
+
+        td {
+            height: 100%;
+            vertical-align: baseline;
+        }
+
+        #continue-shop {
+            margin: auto;
+        }
+
+        .paypal-container {
+            margin: auto;
+            display: flex;
+        }
+
+        .column-end {
+            text-align: end;
+        }
+
+    </style>
 }
